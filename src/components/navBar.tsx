@@ -47,7 +47,7 @@ const NavBar = ({
       >
         <div>
           {/* <div className="bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 border-none rounded-full px-8 py-3 shadow-lg shadow-amber-200/50"> */}
-            <div className="bg-white backdrop-blur-3xl border-none rounded-full px-8 py-3 shadow-xl shadow-black-200/50">
+          <div className="bg-white backdrop-blur-3xl border-none rounded-full px-8 py-3 shadow-xl shadow-black-200/50">
             <div className="flex items-center justify-center gap-8">
               <motion.div
                 className="flex items-center gap-3 text-xl font-light tracking-tight"
@@ -55,7 +55,7 @@ const NavBar = ({
               >
                 <div className="w-8 h-8 rounded-full flex items-center justify-center">
                   <Image
-                    src="/cmp-logo.png" // ✅ path from public folder
+                    src="/company-logo.png" // ✅ path from public folder
                     alt="Company Logo"
                     width={120} // required
                     height={120} // required

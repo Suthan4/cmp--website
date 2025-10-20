@@ -217,7 +217,7 @@ export default function LandingPage() {
             >
               <div className="w-8 h-8  rounded-full flex items-center justify-center">
                 <Image
-                  src="/cmp-logo.png" // ✅ path from public folder
+                  src="/company-logo.png" // ✅ path from public folder
                   alt="Company Logo"
                   width={120} // required
                   height={120} // required

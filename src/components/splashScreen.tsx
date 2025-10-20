@@ -18,7 +18,7 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
           <div className="w-20 h-20 rounded-full flex items-center justify-center animate-bounce">
             {/* <Layers className="w-10 h-10 text-white" /> */}
             <Image
-              src="/cmp-logo.png" // ✅ path from public folder
+              src="/company-logo.png" // ✅ path from public folder
               alt="Company Logo"
               width={120} // required
               height={120} // required
