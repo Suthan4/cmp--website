@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { AnimatedSection } from "./animatedSection";
 import { motion } from "motion/react";
