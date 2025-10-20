@@ -10,21 +10,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://domain.com"),
+  metadataBase: new URL("https://smyd.in"),
   title: {
-    default: "Business Name | What you do",
-    template: "", // creates apge name  | Your business Name
+    default: "SMYD Global | IT Services",
+    template: "SMYD Global",
   },
-  description: "Your compelling business description with keywords",
+  description:
+    "SYMP Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
   keywords: [
-    "primary service + location",
-    "secondary service + location",
-    "industry keywords",
-    "local keywords",
+    "IT services in India",
+    "software development company in India",
+    "digital transformation services",
+    "cloud solutions provider",
+    "cybersecurity and data protection",
+    "AI and automation consulting",
+    "web and mobile app development",
+    "enterprise IT solutions",
+    "managed IT support",
+    "technology consulting company",
   ],
-  authors: [{ name: "Your Business Name" }],
-  creator: "Your Business Name",
-  publisher: "Your Business Name",
+  authors: [{ name: "SMYD Global" }],
+  creator: "Hari suthan",
+  publisher: "Hari suthan",
   robots: {
     index: true,
     follow: true,
@@ -35,30 +42,31 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://domain.com",
-    title: "Your business - Peofessional Service",
-    description: "Engaging description for social media sharing",
+    url: "https://smyd.in",
+    title: "SYMp Global - IT Service",
+    description:
+      "SYMP Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
     images: [
       {
-        url: "/hero-image.jpg",
+        url: "/cmp-logo.png",
         width: 1200,
         height: 630,
-        alt: "Descriptive alt text for your main image",
+        alt: "SYMP Global",
       },
     ],
-    siteName: "Your Business Name",
+    siteName: "SMYPD Global",
   },
   twitter: {
     card: "summary_large_image",
-    title: "You Business - Professional service",
+    title: "SMYD - IT service",
     description: "Engaging description for Twitter sharing",
-    images: ["/hero-image.jpg"],
+    images: ["/cmp-logo.png"],
   },
   alternates: {
-    canonical: "https://somain.com",
+    canonical: "https://smyd.in",
   },
   other: {
-    "theme-color": "#your-brand-color",
+    "theme-color": "Black",
   },
 };
 

@@ -9,6 +9,8 @@ import {
   useTransform,
 } from "motion/react";
 import React, { RefObject, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+
 
 const NavBar = ({
   footerRef,
@@ -45,17 +47,24 @@ const NavBar = ({
       >
         <div>
           {/* <div className="bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 border-none rounded-full px-8 py-3 shadow-lg shadow-amber-200/50"> */}
-          <div className="bg-white backdrop-blur-3xl border-none rounded-full px-8 py-3 shadow-xl shadow-black-200/50">
+            <div className="bg-white backdrop-blur-3xl border-none rounded-full px-8 py-3 shadow-xl shadow-black-200/50">
             <div className="flex items-center justify-center gap-8">
               <motion.div
                 className="flex items-center gap-3 text-xl font-light tracking-tight"
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                  <Layers className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                  <Image
+                    src="/cmp-logo.png" // ✅ path from public folder
+                    alt="Company Logo"
+                    width={120} // required
+                    height={120} // required
+                    priority // optional: preload for performance
+                  />{" "}
+                  {/* <Layers className="w-4 h-4 text-white" /> */}
                 </div>
                 <span className="text-black font-medium hidden sm:block">
-                  Innovate Solutions
+                  SMYD Global
                 </span>
               </motion.div>
 
@@ -72,7 +81,8 @@ const NavBar = ({
                 ))}
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="bg-gradient-to-l from-amber-200 via-orange-400 to-amber-200 inline-flex items-center cursor-pointer hover:scale-[1.1] group text-black rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
+                  // className="bg-gradient-to-l from-amber-200 via-orange-400 to-amber-200 inline-flex items-center cursor-pointer hover:scale-[1.1] group text-black rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
+                  className="bg-black inline-flex items-center cursor-pointer hover:scale-[1.1] group text-white rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
                 >
                   Get Started
                   <ArrowRight

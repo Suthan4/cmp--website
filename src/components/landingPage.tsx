@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent, ChangeEvent } from "react";
+import { useState, useEffect, useRef, FormEvent, ChangeEvent, ReactNode, ElementType } from "react";
 import {
   motion,
   useScroll,
@@ -25,8 +25,19 @@ import {
   Twitter,
   Linkedin,
   Mail,
+  Users,
+  GitBranch,
+  HandPlatter,
+  ShieldCheck,
+  PackageCheck,
 } from "lucide-react";
 import SplashScreen from "./splashScreen";
+import Projects from "./projects";
+import { AnimatedSection } from "./animatedSection";
+import Methodoligies from "./methodoligies";
+import EngagementModels from "./engagementModels";
+import Image from "next/image";
+
 // import { toast } from "sonner";
 
 interface Feature {
@@ -39,7 +50,7 @@ interface Feature {
 interface TeamMember {
   name: string;
   role: string;
-  image: string;
+  icon: ElementType;
 }
 
 interface Testimonial {
@@ -84,35 +95,31 @@ const features: Feature[] = [
 
 const team: TeamMember[] = [
   {
-    name: "Sarah Chen",
-    role: "Chief Technology Officer",
-    image:
-      "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?crop=entropy&cs=srgb&fm=jpg&q=85",
+    name: " Developers (Mobile & Web)",
+    role: "Our skilled developers build robust and scalable applications for both mobile and web platforms, leveraging the latest technologies to bring your ideas to life.",
+    icon: GitBranch,
   },
   {
-    name: "Marcus Williams",
-    role: "Lead AI Engineer",
-    image:
-      "https://images.unsplash.com/photo-1758598304704-8dc72fe16003?crop=entropy&cs=srgb&fm=jpg&q=85",
+    name: "UI/UX Designers",
+    role: "Our UI/UX designers craft intuitive and engaging user experiences, focusing on user-centered design principles to ensure aesthetic appeal and seamless interaction.",
+    icon: HandPlatter
   },
   {
-    name: "Aisha Johnson",
-    role: "Data Science Director",
-    image:
-      "https://images.unsplash.com/photo-1758876203819-4cb3eec8e1aa?crop=entropy&cs=srgb&fm=jpg&q=85",
+    name: "QA Engineers",
+    role: "Our meticulous QA engineers ensure the highest quality standards, meticulously testing every aspect of your product to guarantee flawless and reliable performance.",
+    icon: ShieldCheck
   },
   {
-    name: "Emily Roberts",
-    role: "Solutions Architect",
-    image:
-      "https://images.unsplash.com/photo-1758518727888-ffa196002e59?crop=entropy&cs=srgb&fm=jpg&q=85",
+    name: "Project Managers",
+    role: "Our experienced project managers oversee the entire development lifecycle, ensuring projects are delivered on time, within budget, and to the highest client satisfaction through effective communication and coordination.",
+    icon: PackageCheck,
   },
 ];
 
 const testimonials: Testimonial[] = [
   {
     quote:
-      "Innovate Solutions transformed our data infrastructure. Their AI solutions increased our operational efficiency by 45%.",
+      "SMYD Global transformed our data infrastructure. Their AI solutions increased our operational efficiency by 45%.",
     author: "John Martinez",
     position: "CEO, TechFlow Inc.",
   },
@@ -130,7 +137,7 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-export default function OffLand() {
+export default function LandingPage() {
   const [showSplash, setShowSplash] = useState(true);
   const [activeTestimonial, setActiveTestimonial] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
@@ -142,7 +149,6 @@ export default function OffLand() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
 
-
   const { scrollYProgress, scrollY } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
@@ -150,8 +156,6 @@ export default function OffLand() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -211,11 +215,17 @@ export default function OffLand() {
               initial="initial"
               className="flex items-center justify-center gap-3 font-light leading-[0.95] tracking-tight"
             >
-              <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                <Layers className="w-4 h-4 text-white" />
+              <div className="w-8 h-8  rounded-full flex items-center justify-center">
+                <Image
+                  src="/cmp-logo.png" // ✅ path from public folder
+                  alt="Company Logo"
+                  width={120} // required
+                  height={120} // required
+                  priority // optional: preload for performance
+                />{" "}
               </div>
               <span className="text-black font-medium hidden sm:block">
-                Innovate Solutions
+                SMYD Global
               </span>
             </motion.h1>
           </motion.div>
@@ -287,7 +297,7 @@ export default function OffLand() {
       </motion.section>
 
       {/* Features Section */}
-      <section id="features" className="py-32 relative bg-white">
+      {/* <section id="features" className="py-32 relative bg-white">
         <div className="container mx-auto px-6">
           <AnimatedSection>
             <div className="text-center mb-24">
@@ -312,7 +322,7 @@ export default function OffLand() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Team Section */}
       <section
@@ -337,7 +347,7 @@ export default function OffLand() {
             </div>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {team.map((member, index) => (
               <Teamdiv key={index} member={member} index={index} />
             ))}
@@ -345,8 +355,13 @@ export default function OffLand() {
         </div>
       </section>
 
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-4 bg-white">
+        <Projects />
+      </section>
+
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-32 relative bg-white">
+      {/* <section id="testimonials" className="py-32 relative bg-white">
         <div className="container mx-auto px-6">
           <AnimatedSection>
             <div className="text-center mb-24">
@@ -435,8 +450,12 @@ export default function OffLand() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
+      {/* Methodoligies */}
+      <Methodoligies />
+      {/* Engagements */}
+      <EngagementModels />
       {/* Contact Section */}
       <section id="contact" className="py-32 relative bg-neutral-50">
         <div className="container mx-auto px-6 relative z-10">
@@ -549,26 +568,6 @@ export default function OffLand() {
   );
 }
 
-interface AnimatedSectionProps {
-  children: React.ReactNode;
-}
-
-function AnimatedSection({ children }: AnimatedSectionProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 interface FeaturedivProps {
   feature: Feature;
   index: number;
@@ -655,25 +654,19 @@ function Teamdiv({ member, index }: TeamdivProps) {
         className="group relative"
       >
         <div className="bg-white border-neutral-200 hover:border-neutral-300 hover:shadow-xl transition-all duration-500 overflow-hidden rounded-3xl">
-          <div className="p-0">
-            <div className="relative h-96 overflow-hidden bg-neutral-100">
-              <motion.img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-full object-cover transition-all duration-700"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.7 }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent opacity-90" />
+          <div className="p-4">
+            <div
+              className={`inline-flex p-4 rounded-xl bg-gradient-to-br from-amber-200 via-orange-500 to-amber-200 mb-6 relative z-10`}
+            >
+              <member.icon className="w-8 h-8 text-white" />
             </div>
-            <div className="p-6 -mt-20 relative z-10">
-              <h3 className="text-xl font-light mb-1 text-black tracking-tight">
-                {member.name}
-              </h3>
-              <p className="text-neutral-500 text-sm font-light">
-                {member.role}
-              </p>
-            </div>
+            <h2 className="text-xl md:text-5xl font-light mb-6 tracking-tighter">
+              {member.name}
+            </h2>
+
+            <p className="text-xl md:text-xl text-neutral-500 tracking-tight">
+              {member.role}
+            </p>
           </div>
         </div>
       </motion.div>

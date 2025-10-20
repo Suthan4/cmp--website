@@ -146,7 +146,7 @@ const Footer = ({
             </div>
             <div className="text-center md:mb-12">
               <h3 className="text-[5.2rem] md:text-[13rem] lg:text-[20rem] font-light mb-2 md:mb-3 leading-[0.95] tracking-tight">
-                Innovate Solution
+               SMYD Global
               </h3>
               <p className="text-neutral-700 text-xs md:text-sm font-light">
                 Every AI for everyone
