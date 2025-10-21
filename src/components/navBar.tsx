@@ -11,7 +11,6 @@ import {
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-
 const NavBar = ({
   footerRef,
 }: {
@@ -20,7 +19,6 @@ const NavBar = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const controls = useAnimation();
-
 
   const isFooterInView = useInView(footerRef, { margin: "0px 0px -70px 0px" });
   const scrollToSection = (id: string): void => {
@@ -47,7 +45,8 @@ const NavBar = ({
       >
         <div>
           {/* <div className="bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 border-none rounded-full px-8 py-3 shadow-lg shadow-amber-200/50"> */}
-          <div className="bg-white backdrop-blur-3xl border-none rounded-full px-8 py-3 shadow-xl shadow-black-200/50">
+          <div className="bg-white/90 backdrop-blur-md border border-orange-200/30 rounded-full px-8 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(249,115,22,0.15)] transition-all duration-300">
+            {" "}
             <div className="flex items-center justify-center gap-8">
               <motion.div
                 className="flex items-center gap-3 text-xl font-light tracking-tight"
@@ -81,8 +80,8 @@ const NavBar = ({
                 ))}
                 <button
                   onClick={() => scrollToSection("contact")}
-                  // className="bg-gradient-to-l from-amber-200 via-orange-400 to-amber-200 inline-flex items-center cursor-pointer hover:scale-[1.1] group text-black rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
-                  className="bg-black inline-flex items-center cursor-pointer hover:scale-[1.1] group text-white rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
+                  className="bg-gradient-to-l from-amber-200 via-orange-400 to-amber-200 inline-flex items-center cursor-pointer hover:scale-[1.1] group text-black rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
+                  // className="bg-black inline-flex items-center cursor-pointer hover:scale-[1.1] group text-white rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
                 >
                   Get Started
                   <ArrowRight
