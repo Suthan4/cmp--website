@@ -1,6 +1,7 @@
 "use client";
 import { Globe, Linkedin, Mail, Twitter } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import Link from "next/link";
 import React, { RefObject, useRef } from "react";
 
 const Footer = ({
@@ -52,6 +53,14 @@ const Footer = ({
                     >
                       Blog
                     </a>
+                  </li>
+                  <li>
+                    <Link
+                      href="/our-services"
+                      className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
+                    >
+                      Services
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -146,7 +155,7 @@ const Footer = ({
             </div>
             <div className="text-center md:mb-12">
               <h3 className="text-[5.2rem] md:text-[13rem] lg:text-[20rem] font-light mb-2 md:mb-3 leading-[0.95] tracking-tight">
-               SMYD Global
+                SMYD Global
               </h3>
               <p className="text-neutral-700 text-xs md:text-sm font-light">
                 Every AI for everyone

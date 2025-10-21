@@ -68,7 +68,7 @@ const NavBar = ({
               </motion.div>
 
               <div className="hidden md:flex items-center gap-8">
-                {["features", "team", "testimonials", "contact"].map((item) => (
+                {["projects", "team", "engagements", "contact"].map((item) => (
                   <motion.button
                     key={item}
                     onClick={() => scrollToSection(item)}
@@ -79,6 +79,7 @@ const NavBar = ({
                   </motion.button>
                 ))}
                 <button
+                  type="button"
                   onClick={() => scrollToSection("contact")}
                   className="bg-gradient-to-l from-amber-200 via-orange-400 to-amber-200 inline-flex items-center cursor-pointer hover:scale-[1.1] group text-black rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
                   // className="bg-black inline-flex items-center cursor-pointer hover:scale-[1.1] group text-white rounded-full px-6 py-2 active:scale-[0.98] font-light transition-all"
