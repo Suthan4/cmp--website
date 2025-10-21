@@ -12,10 +12,10 @@ const Footer = ({
   return (
     <>
       <div ref={footerRef} className="w-full p-4 md:p-6">
-        <motion.footer className="w-full bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 text-black py-8 md:py-16 rounded-[4rem] shadow-lg shadow-amber-200/50 backdrop-blur-3xl">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <motion.footer className="w-full bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 text-black py-8 rounded-[1.5rem] md:py-16 md:rounded-[4rem] shadow-lg shadow-amber-200/50 backdrop-blur-3xl">
+          <div className="max-w-7xl mx-auto px-5 md:px-8">
             {/* Grid Layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-8 md:mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-8 md:mb-12">
               {/* Navigation */}
               <div>
                 <h4 className="text-black font-semibold mb-4 md:mb-6 text-xs md:text-sm uppercase tracking-wider">
@@ -99,7 +99,7 @@ const Footer = ({
               </div>
 
               {/* Social */}
-              <div>
+              {/* <div>
                 <h4 className="text-black font-semibold mb-4 md:mb-6 text-xs md:text-sm uppercase tracking-wider">
                   Stay in touch
                 </h4>
@@ -129,15 +129,15 @@ const Footer = ({
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
             {/* Divider */}
             <div className="border-t border-black/20 pt-6 md:pt-8 mb-12">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
                 <p className="text-neutral-700 text-xs md:text-xs">
-                  © Innovate Solution 2025. All rights reserved.
+                  © SMYD Global 2025. All rights reserved.
                 </p>
-                <div className="flex gap-4 md:gap-6">
+                {/* <div className="flex gap-4 md:gap-6">
                   <button className="text-neutral-700 hover:text-black transition-colors duration-200">
                     <Globe className="w-4 h-4 md:w-5 md:h-5" />
                   </button>
@@ -150,7 +150,7 @@ const Footer = ({
                   <button className="text-neutral-700 hover:text-black transition-colors duration-200">
                     <Mail className="w-4 h-4 md:w-5 md:h-5" />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="text-center md:mb-12">

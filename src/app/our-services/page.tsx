@@ -128,7 +128,7 @@ const ServicesSection = () => {
           className="text-center mb-32"
         >
           <h2 className="text-7xl md:text-9xl font-light mb-6 tracking-[-0.02em] leading-none">
-            Services We <span className="italic text-neutral-400">Offer</span>
+            Services We Offer
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
             Comprehensive solutions tailored to your business needs
@@ -196,100 +196,99 @@ const ServiceCard = ({ service, index, scrollYProgress }: ServiceCardProps) => {
   );
 };
 
-const TechnologySection = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+// const TechnologySection = () => {
+//   const containerRef = useRef(null);
+//   const { scrollYProgress } = useScroll({
+//     target: containerRef,
+//     offset: ["start end", "end start"],
+//   });
 
-  return (
-    <section
-      ref={containerRef}
-      className="py-40 bg-white relative overflow-hidden"
-    >
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-32"
-        >
-          <h2 className="text-7xl md:text-9xl font-light mb-6 tracking-[-0.02em] leading-none">
-            Our Technology{" "}
-            <span className="italic text-neutral-400">Stacks</span>
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
-            Cutting-edge technologies powering innovative solutions
-          </p>
-        </motion.div>
+//   return (
+//     <section
+//       ref={containerRef}
+//       className="py-40 bg-white relative overflow-hidden"
+//     >
+//       <div className="container mx-auto px-6 relative z-10">
+//         <motion.div
+//           initial={{ opacity: 0, y: 30 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           transition={{ duration: 0.8 }}
+//           className="text-center mb-32"
+//         >
+//           <h2 className="text-7xl md:text-9xl font-light mb-6 tracking-[-0.02em] leading-none">
+//             Our Technology Stacks
+//           </h2>
+//           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
+//             Cutting-edge technologies powering innovative solutions
+//           </p>
+//         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {technologies.map((tech, index) => (
-            <TechnologyCard
-              key={index}
-              tech={tech}
-              index={index}
-              scrollYProgress={scrollYProgress}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+//         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+//           {technologies.map((tech, index) => (
+//             <TechnologyCard
+//               key={index}
+//               tech={tech}
+//               index={index}
+//               scrollYProgress={scrollYProgress}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
-interface TechnologyCardProps {
-  tech: ITechnologies;
-  index: number;
-  scrollYProgress: MotionValue<number>;
-}
-const TechnologyCard = ({
-  tech,
-  index,
-  scrollYProgress,
-}: TechnologyCardProps) => {
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [index % 2 === 0 ? 60 : 80, index % 2 === 0 ? -80 : -60]
-  );
+// interface TechnologyCardProps {
+//   tech: ITechnologies;
+//   index: number;
+//   scrollYProgress: MotionValue<number>;
+// }
+// const TechnologyCard = ({
+//   tech,
+//   index,
+//   scrollYProgress,
+// }: TechnologyCardProps) => {
+//   const y = useTransform(
+//     scrollYProgress,
+//     [0, 1],
+//     [index % 2 === 0 ? 60 : 80, index % 2 === 0 ? -80 : -60]
+//   );
 
-  return (
-    <motion.div
-      style={{ y }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="group relative"
-    >
-      <div className="relative bg-white rounded-3xl p-10 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <tech.Icon className="w-6 h-6 text-white" />
-          </div>
-          <h3 className="text-3xl md:text-4xl font-light tracking-tight">
-            {tech.title}
-          </h3>
-        </div>
+//   return (
+//     <motion.div
+//       style={{ y }}
+//       initial={{ opacity: 0, y: 60 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 0.8, delay: index * 0.1 }}
+//       className="group relative"
+//     >
+//       <div className="relative bg-white rounded-3xl p-10 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden">
+//         <div className="flex items-center gap-4 mb-6">
+//           <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+//             <tech.Icon className="w-6 h-6 text-white" />
+//           </div>
+//           <h3 className="text-3xl md:text-4xl font-light tracking-tight">
+//             {tech.title}
+//           </h3>
+//         </div>
 
-        <p className="text-base text-neutral-600 leading-relaxed font-light">
-          {tech.items.join(", ")}
-        </p>
+//         <p className="text-base text-neutral-600 leading-relaxed font-light">
+//           {tech.items.join(", ")}
+//         </p>
 
-        <motion.div className="absolute bottom-0 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
-      </div>
-    </motion.div>
-  );
-};
+//         <motion.div className="absolute bottom-0 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+//       </div>
+//     </motion.div>
+//   );
+// };
 
 export default function OurServicesPage() {
   return (
     <>
       <ServicesSection />
-      <TechnologySection />
+      {/* <TechnologySection /> */}
     </>
   );
 }

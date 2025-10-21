@@ -49,10 +49,10 @@ const NavBar = ({
             {" "}
             <div className="flex items-center justify-center gap-8">
               <motion.div
-                className="flex items-center gap-3 text-xl font-light tracking-tight"
+                className="flex items-center gap-0 text-xl font-light tracking-tight"
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center">
                   <Image
                     src="/company-logo.png" // ✅ path from public folder
                     alt="Company Logo"
@@ -60,7 +60,6 @@ const NavBar = ({
                     height={120} // required
                     priority // optional: preload for performance
                   />{" "}
-                  {/* <Layers className="w-4 h-4 text-white" /> */}
                 </div>
                 <span className="text-black font-medium hidden sm:block">
                   SMYD Global
@@ -114,7 +113,7 @@ const NavBar = ({
               exit={{ opacity: 0, y: -20 }}
               className="mt-4 bg-white/95 backdrop-blur-2xl border  border-neutral-200 rounded-3xl p-6 md:hidden shadow-xl"
             >
-              {["features", "team", "testimonials", "contact"].map((item) => (
+              {["projects", "team", "engagements", "contact"].map((item) => (
                 <button
                   type="button"
                   key={item}
@@ -127,7 +126,7 @@ const NavBar = ({
               <button
                 type="button"
                 onClick={() => scrollToSection("contact")}
-                className="w-full mt-4 bg-black hover:bg-neutral-800 text-white rounded-full font-light py-3 transition-all"
+                className="w-full mt-4 bg-black hover:bg-neutral-800 text-white rounded-full font-light px-5 py-2 transition-all"
               >
                 Get Started
               </button>
