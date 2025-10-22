@@ -1,4 +1,8 @@
 @import "tailwindcss";
 
-
+@layer components{
+    .section-base{
+        @apply py-5
+    }
+}
 

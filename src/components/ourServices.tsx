@@ -44,7 +44,7 @@ const services: Iservices[] = [
   },
   {
     Icon: Cloud,
-    title: "Cloud Services",
+    title: "Cloud & DevOps",
     desc: "Scalable cloud infrastructure and migration solutions.",
   },
   {
@@ -54,12 +54,12 @@ const services: Iservices[] = [
   },
   {
     Icon: Wrench,
-    title: "ServiceNow Services",
+    title: "ServiceNow",
     desc: "Enterprise service management and workflow automation.",
   },
   {
     Icon: BarChart3,
-    title: "Data Science Services",
+    title: "Data Science",
     desc: "Data analytics and insights to drive business decisions.",
   },
   {
@@ -83,8 +83,8 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       transition={{ duration: 0.7, delay: index * 0.05 }}
       className="group relative"
     >
-      <div className="relative bg-white rounded-3xl p-10 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden h-full">
-        <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+      <div className="relative bg-white rounded-3xl p-10 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden h-full flex flex-col min-h-[280px]">
+        <div className="w-12 h-12 rounded-xl bg-black flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
           <service.Icon className="w-6 h-6 text-white" />
         </div>
 
@@ -92,7 +92,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
           {service.title}
         </h3>
 
-        <p className="text-sm text-neutral-600 leading-relaxed font-light">
+        <p className="text-base text-neutral-600 leading-relaxed font-light flex-1">
           {service.desc}
         </p>
 
@@ -106,10 +106,14 @@ const ServicesSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="services" ref={containerRef} className="relative bg-white">
-      <div className="min-h-screen flex">
+    <section
+      id="services"
+      ref={containerRef}
+      className="relative bg-white py-32"
+    >
+      <div className="min-h-screen flex flex-col md:flex-row">
         {/* Left side - Sticky heading */}
-        <div className="w-full md:w-1/2 sticky top-0 h-screen flex items-center justify-center md:justify-start px-6 md:px-12 lg:px-20 bg-white">
+        <div className="w-full md:w-1/2 md:sticky md:top-0 md:h-screen flex items-center justify-center md:justify-start px-6 md:px-12 lg:px-20 bg-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -128,7 +132,7 @@ const ServicesSection = () => {
 
         {/* Right side - Normal scrolling cards */}
         <div className="hidden md:flex w-1/2 flex-col py-20 px-6 lg:px-12 bg-neutral-50">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-2xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-2xl mx-auto w-full">
             {services.map((service, index) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
@@ -138,7 +142,7 @@ const ServicesSection = () => {
 
       {/* Mobile view - Full width cards */}
       <div className="md:hidden bg-white py-20 px-6">
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}

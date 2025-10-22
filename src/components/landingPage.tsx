@@ -11,6 +11,12 @@ import {
   Package,
   Palette,
   ArrowRight,
+  Smartphone,
+  ShoppingCart,
+  TrendingUp,
+  BarChart,
+  Database,
+  Layers,
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatedSection } from "./animatedSection";
@@ -33,7 +39,7 @@ const HeroSection = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
       style={{ opacity: heroOpacity, y: heroY }}
-      className="relative min-h-[95vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div className="absolute z-10 container mx-auto px-6 text-center">
         <motion.div
@@ -47,11 +53,11 @@ const HeroSection = () => {
           >
             <div className="w-14 h-14 flex items-center justify-center">
               <Image
-                src="/company-logo.png" // ✅ path from public folder
+                src="/company-logo.png"
                 alt="Company Logo"
-                width={140} // required
-                height={140} // required
-                priority // optional: preload for performance
+                width={140}
+                height={140}
+                priority
               />{" "}
             </div>
             <span className="text-black text-xl font-medium hidden sm:block">
@@ -65,10 +71,10 @@ const HeroSection = () => {
           transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-7xl mx-auto"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-light m-4 leading-[0.95] tracking-tight">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-[0.95] tracking-tight">
             <span className="block text-black">Transform</span>
             <span className="block text-black">Your Business</span>
-            <span className="block text-black  text-6xl md:text-8xl">
+            <span className="block text-black text-6xl md:text-8xl">
               with Impact
             </span>
           </h1>
@@ -77,14 +83,14 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-xl text-neutral-600 mb-10 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl text-neutral-600 mb-6 max-w-4xl mx-auto leading-relaxed"
           >
             Empowering enterprises with cutting-edge artificial intelligence,
             data analytics, and cloud solutions.
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-24"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
@@ -96,11 +102,11 @@ const HeroSection = () => {
               <span className="relative z-10 flex items-center">
                 Start Your Journey
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </span>{" "}
+              </span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
             <button
-              onClick={() => scrollToSection("engagements")}
+              onClick={() => scrollToSection("projects")}
               className="relative border-2 border-black/40 hover:border-black/80 hover:bg-black/10 text-black rounded-full px-10 py-3 text-lg font-semibold transition-all backdrop-blur-md hover:backdrop-blur-lg overflow-hidden group"
             >
               <span className="relative z-10">Explore Solutions</span>
@@ -128,363 +134,154 @@ const HeroSection = () => {
   );
 };
 
-const TeamSection = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+const team = [
+  {
+    name: "Developers",
+    subtitle: "IT Solutions",
+    role: "Delivering end-to-end application development solutions, focusing on quality, scalability, and cutting-edge technology adoption.",
+    icon: GitBranch,
+  },
+  {
+    name: "UI/UX Designers",
+    subtitle: "Experience Crafters",
+    role: "Crafting intuitive and engaging user experiences with a focus on user-centered design principles and aesthetic excellence.",
+    icon: Palette,
+  },
+  {
+    name: "Senior QA Engineers",
+    subtitle: "Quality Assurance",
+    role: "Ensuring the highest quality standards through meticulous testing of every aspect of your product for flawless performance.",
+    icon: ShieldCheck,
+  },
+  {
+    name: "Project Managers",
+    subtitle: "Delivery Experts",
+    role: "Overseeing the entire development lifecycle, ensuring on-time delivery within budget and maintaining the highest client satisfaction.",
+    icon: Package,
+  },
+  {
+    name: "Business Executive Analyst",
+    subtitle: "Strategic Insights",
+    role: "Analyzing business processes and market trends to provide actionable insights and support strategic decision-making.",
+    icon: BarChart,
+  },
+  {
+    name: "Data Scientist",
+    subtitle: "Data Innovators",
+    role: "Leveraging data to build predictive models, extract actionable insights, and drive data-informed business decisions.",
+    icon: Database,
+  },
+  {
+    name: "Architect",
+    subtitle: "Solution Architect",
+    role: "Designing scalable and efficient software architectures, ensuring alignment with business goals and technical standards.",
+    icon: Layers,
+  },
+];
 
-  const team = [
-    {
-      name: "Developers",
-      subtitle: "Mobile & Web",
-      role: "Building robust and scalable applications for mobile and web platforms, leveraging cutting-edge technologies to bring your ideas to life.",
-      icon: GitBranch,
-    },
-    {
-      name: "UI/UX Designers",
-      subtitle: "Experience Crafters",
-      role: "Crafting intuitive and engaging user experiences with a focus on user-centered design principles and aesthetic excellence.",
-      icon: Palette,
-    },
-    {
-      name: "QA Engineers",
-      subtitle: "Quality Assurance",
-      role: "Ensuring the highest quality standards through meticulous testing of every aspect of your product for flawless performance.",
-      icon: ShieldCheck,
-    },
-    {
-      name: "Project Managers",
-      subtitle: "Delivery Experts",
-      role: "Overseeing the entire development lifecycle, ensuring on-time delivery within budget and maintaining the highest client satisfaction.",
-      icon: Package,
-    },
-  ];
-
-  return (
-    <section
-      id="team"
-      ref={containerRef}
-      className="py-5 bg-white relative overflow-hidden"
-    >
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-5"
-        >
-          <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-tight leading-none">
-            Meet Our Team
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
-            Industry experts driving innovation forward
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 grid-rows-2 gap-6 max-w-6xl mx-auto items-stretch">
-          {team.map((member, index) => (
-            <TeamCard
-              key={index}
-              member={member}
-              index={index}
-              scrollYProgress={scrollYProgress}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const TeamCard = ({ member, index, scrollYProgress }: any) => {
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [index % 2 === 0 ? 100 : 50, 0, index % 2 === 0 ? -50 : -100]
-  );
-
-  return (
-    <motion.div
-      style={{ y }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="group relative h-full"
-    >
-      <div className="relative bg-white rounded-3xl p-12 border border-neutral-200 hover:border-neutral-900 transition-all duration-500 overflow-hidden">
-        <div className="flex items-start gap-6 mb-8">
-          <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <member.icon className="w-7 h-7 text-white" />
-          </div>
-
-          <div>
-            <h3 className="text-3xl md:text-4xl font-light tracking-tight mb-1">
-              {member.name}
-            </h3>
-            <p
-              className="text-sm text-neutral-500 font-medium tracking-wide uppercase 
-             truncate hover:overflow-visible hover:whitespace-normal hover:text-clip transition-all duration-200"
-              title={member.subtitle}
-            >
-              {" "}
-              {member.subtitle}
-            </p>
-          </div>
-        </div>
-
-        <p className="text-base text-neutral-600 leading-relaxed font-light">
-          {member.role}
-        </p>
-
-        <motion.div className="absolute bottom-0 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
-      </div>
-    </motion.div>
-  );
-};
-
-interface IProject {
-  title: string;
-  desc: string;
-  icon: string;
-}
-
-const Projects = () => {
-  const projects: IProject[] = [
-    {
-      title: "Food App Development",
-      desc: "Comprehensive mobile and web solutions for the food industry, creating intuitive platforms for ordering, delivery, and restaurant management.",
-      icon: "🍔",
-    },
-    {
-      title: "Shopify Integrations",
-      desc: "Seamlessly integrating Shopify with various business systems to enhance e-commerce functionality and boost online sales.",
-      icon: "🛒",
-    },
-    {
-      title: "ServiceNow Development",
-      desc: "Building custom applications and solutions across ITSM, IRM, SecOps, CSM, FSM with integrations and custom workflows.",
-      icon: "⚙️",
-    },
-  ];
-
-  return (
-    <section id="projects" className="py-0 px-4 bg-white">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-2 max-w-7xl mx-auto"
-      >
-        <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
-          Projects We Delivered
-        </h2>
-        <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
-          Solutions we've crafted for our clients
-        </p>
-      </motion.div>
-
-      <StickyStackCards projects={projects} />
-    </section>
-  );
-};
-
-const StickyStackCards = ({ projects }: { projects: IProject[] }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end center"],
-  });
-
-  // Container height ensures smooth scrolling through all cards
-  const totalHeight = projects.length * 100;
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative max-w-5xl mx-auto"
-      style={{ height: `${totalHeight}vh` }}
-    >
-      {projects.map((project, index) => (
-        <ProjectCardWrapper
-          key={index}
-          project={project}
-          index={index}
-          totalProjects={projects.length}
-          scrollYProgress={scrollYProgress}
-        />
-      ))}
-    </div>
-  );
-};
-
-const ProjectCardWrapper = ({
-  project,
+const TeamStackedCard = ({
+  member,
   index,
-  totalProjects,
-  scrollYProgress,
+  totalCards,
 }: {
-  project: IProject;
+  member: (typeof team)[0];
   index: number;
-  totalProjects: number;
-  scrollYProgress: any;
+  totalCards: number;
 }) => {
-  // Each card animates in its own window without overlap
-  const cardStart = index / totalProjects;
-  const cardEnd = (index + 1) / totalProjects;
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Y position: cards move up as you scroll
-  const y = useTransform(scrollYProgress, [cardStart, cardEnd], [100, -100]);
+  const targetScale = 1 - (totalCards - index - 1) * 0.05;
+  const targetY = (totalCards - index - 1) * 40;
 
-  // Opacity: fade in at start, stay visible, fade out at end
-  const opacity = useTransform(
-    scrollYProgress,
-    [cardStart, cardStart + 0.1, cardEnd - 0.1, cardEnd],
-    [0, 1, 1, 0]
-  );
-
-  // Scale: slight scale effect for depth
-  const scale = useTransform(scrollYProgress, [cardStart, cardEnd], [0.8, 1]);
+  const Icon = member.icon;
 
   return (
     <motion.div
+      ref={cardRef}
+      className="sticky top-24 mb-8 bg-white"
       style={{
-        y,
-        opacity,
-        scale,
-        zIndex: totalProjects - index,
+        transform: `scale(${targetScale}) translateY(${targetY}px)`,
+        transformOrigin: "top center",
+        transition: "transform 0.3s ease-out",
       }}
-      className="relative flex justify-center items-center min-h-screen py-10"
     >
-      <div className="w-full">
-        <ProjectCard project={project} index={index} scale={scale} />
-      </div>
-    </motion.div>
-  );
-};
-
-const ProjectCard = ({
-  project,
-  index,
-  scale,
-}: {
-  project: IProject;
-  index: number;
-  scale: MotionValue<number>;
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div className="w-full max-w-4xl mx-4">
-      <div
-        className={`relative rounded-[2rem] border bg-white overflow-hidden transition-all duration-500 ${
-          isHovered ? "border-black" : "border-neutral-200"
-        }`}
-        onMouseEnter={() => {
-          console.log("[v0] Card hovered:", index);
-          setIsHovered(true);
-        }}
-        onMouseLeave={() => {
-          console.log("[v0] Card left:", index);
-          setIsHovered(false);
-        }}
+      <motion.div
+        transition={{ duration: 0.3 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="rounded-2xl p-6 shadow-xl flex flex-col justify-between relative overflow-hidden border border-gray-200 min-h-[280px]"
       >
-        <div className="px-16 md:p-20">
-          <div className="flex items-start justify-between mb-12">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gray-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10">
+          <div className="flex items-start gap-4 mb-4">
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="text-7xl md:text-8xl"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6 }}
+              className={`p-3 rounded-xl flex-shrink-0 shadow-lg`}
             >
-              {project.icon}
+              <Icon className={`w-6 h-6 `} />
             </motion.div>
 
-            <div
-              className={`text-8xl md:text-9xl font-light transition-colors ${
-                isHovered ? "text-neutral-300" : "text-neutral-200"
-              }`}
-            >
-              {String(index + 1).padStart(2, "0")}
+            <div className="flex-1">
+              <h3 className="text-xl md:text-2xl font-bold mb-1">
+                {member.name}
+              </h3>
+              <p className="text-sm md:text-base font-medium">
+                {member.subtitle}
+              </p>
             </div>
           </div>
 
-          <h3 className="text-4xl md:text-6xl font-light mb-8 tracking-[-0.01em] leading-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-lg md:text-xl text-neutral-600 leading-relaxed font-light">
-            {project.desc}
-          </p>
+          <p className="text-base md:text-lg leading-relaxed">{member.role}</p>
         </div>
 
-        <motion.div
-          animate={{ scaleX: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute bottom-0 left-0 right-0 h-1 bg-black origin-left"
-        />
-      </div>
-    </div>
+        {/* Card Number Badge */}
+        <div className="relative z-10 flex justify-end">
+          <div
+            className={` bg-opacity-10 backdrop-blur-sm px-4 py-2 rounded-full border`}
+          >
+            <span className={` text-lg font-bold`}>
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
-const Methodologies = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const methodologies = [
-    {
-      icon: Users,
-      title: "Agile",
-      desc: "An iterative development approach emphasizing flexibility and continuous improvement through small cycles.",
-    },
-    {
-      icon: Droplet,
-      title: "Waterfall",
-      desc: "A linear, sequential process where each phase must be completed before the next begins.",
-    },
-    {
-      icon: Zap,
-      title: "Hybrid",
-      desc: "Combines elements of both Agile and Waterfall, adapting to project needs for optimal outcomes.",
-    },
-  ];
-
+const TeamSection = () => {
   return (
     <section
-      id="methodologies"
-      ref={containerRef}
-      className="relative py-0 bg-white overflow-hidden"
+      id="projects"
+      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
     >
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="space-y-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
-            <span className="text-5xl md:text-7xl">Our</span> Methodologies
+          <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-tight leading-none">
+            Projects We Pitched{" "}
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
-            Cutting-edge approaches tailored to your needs
+            Delivering innovative solutions that make a real impact.
           </p>
         </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {methodologies.map((method, index) => (
-            <MethodologyCard
-              key={index}
-              method={method}
+        <div className="relative" style={{ height: `${team.length * 450}px` }}>
+          {team.map((member, index) => (
+            <TeamStackedCard
+              key={member.name}
+              member={member}
               index={index}
-              scrollYProgress={scrollYProgress}
+              totalCards={team.length}
             />
           ))}
         </div>
@@ -493,34 +290,179 @@ const Methodologies = () => {
   );
 };
 
-const MethodologyCard = ({ method, index, scrollYProgress }: any) => {
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+interface ProjCardData {
+  id: number;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  details?: string[];
+}
+
+const projCards: ProjCardData[] = [
+  {
+    id: 1,
+    title: "Food App Development",
+    description:
+      "Specializing in comprehensive mobile and web solutions for the food industry, creating intuitive and engaging platforms for ordering, delivery, and restaurant management.",
+    icon: <Smartphone className="w-12 h-12" />,
+  },
+  {
+    id: 2,
+    title: "Shopify Integrations",
+    description:
+      "Seamlessly integrating Shopify with various business systems to enhance e-commerce functionality, streamline operations, and boost online sales.",
+    icon: <ShoppingCart className="w-12 h-12" />,
+  },
+  {
+    id: 3,
+    title: "ServiceNow Application Development",
+    description:
+      "Leveraging the ServiceNow platform to build custom applications and solutions across various domains:",
+    icon: <TrendingUp className="w-12 h-12" />,
+    details: [
+      "ITSM: IT Service Management",
+      "IRM: Integrated Risk Management",
+      "SecOps: Security Operations",
+      "CSM: Customer Service Management",
+      "FSM: Field Service Management",
+      "Custom applications, Integrations, SLO, ITOM, ITAM.",
+    ],
+  },
+];
+
+const ProjCard = ({ card, index }: { card: ProjCardData; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
 
   return (
     <motion.div
-      style={{ y }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
-      className="group relative"
+      ref={ref}
+      style={{
+        scale,
+        y,
+        top: `${index * 50}px`,
+      }}
+      className="sticky w-full"
     >
-      <div className="relative bg-white rounded-3xl p-12 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden">
-        <div className="w-14 h-14 rounded-2xl bg-black flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
-          <method.icon className="w-7 h-7 text-white" />
+      <div className="relative rounded-3xl bg-white p-10 shadow-2xl border border-neutral-200 overflow-hidden group hover:shadow-3xl transition-shadow duration-500">
+        {/* Subtle gradient overlay on hover */}
+        {/* <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" /> */}
+
+        {/* Decorative corner accent */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-neutral-900 to-neutral-700 opacity-5 rounded-bl-full" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-neutral-900 to-neutral-700 opacity-5 rounded-tr-full" />
+
+        <div className="relative z-10">
+          {/* Icon and Number */}
+          <div className="flex items-start justify-between mb-8">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="p-5 bg-neutral-900 rounded-2xl text-white shadow-xl shadow-neutral-900/20 group-hover:shadow-2xl group-hover:shadow-neutral-900/30 transition-shadow duration-500"
+            >
+              {card.icon}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-8xl font-bold text-neutral-100"
+            >
+              0{card.id}
+            </motion.div>
+          </div>
+
+          {/* Title */}
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-4xl font-bold text-neutral-900 mb-5 leading-tight"
+          >
+            {card.title}
+          </motion.h2>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-lg text-neutral-600 leading-relaxed mb-6"
+          >
+            {card.description}
+          </motion.p>
+
+          {/* Details List */}
+          {card.details && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="space-y-3 mt-8"
+            >
+              {card.details.map((detail, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 + idx * 0.1 }}
+                  className="flex items-start gap-3 group/item"
+                >
+                  <div className="w-2 h-2 rounded-full bg-neutral-900 mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform" />
+                  <p className="text-neutral-700 text-base font-medium">
+                    {detail}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="h-1 bg-gradient-to-r from-neutral-900 via-neutral-600 to-transparent rounded-full mt-8 origin-left"
+          />
         </div>
-
-        <h3 className="text-4xl md:text-5xl font-light mb-6 tracking-tight">
-          {method.title}
-        </h3>
-
-        <p className="text-base text-neutral-600 leading-relaxed font-light">
-          {method.desc}
-        </p>
-
-        <motion.div className="absolute bottom-0 left-0 right-0 h-px bg-black scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
       </div>
     </motion.div>
+  );
+};
+
+const Projects = () => {
+  return (
+    <section
+      id="projects"
+      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
+    >
+      <div className="space-y-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-tight leading-none">
+            Projects We Pitched{" "}
+          </h2>
+          <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
+            Delivering innovative solutions that make a real impact.
+          </p>
+        </motion.div>
+        {projCards.map((card, index) => (
+          <ProjCard key={card.id} card={card} index={index} />
+        ))}
+      </div>
+    </section>
   );
 };
 
@@ -556,25 +498,25 @@ const EngagementModels = () => {
     <section
       id="engagements"
       ref={containerRef}
-      className="relative py-0 bg-white overflow-hidden"
+      className="relative section-base bg-white overflow-hidden"
     >
-      <div className="container mx-auto px-1 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
-            <span className="text-7xl md:text-7xl">Our</span> Engagements
+          <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
+            Our Engagements
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
             Committed to delivering value beyond expectations
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {engagements.map((engagement, index) => (
             <EngagementCard
               key={index}
@@ -601,7 +543,7 @@ const EngagementCard = ({ engagement, index, scrollYProgress }: any) => {
       transition={{ duration: 0.7, delay: index * 0.1 }}
       className="group relative"
     >
-      <div className="relative bg-white rounded-3xl p-12 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden">
+      <div className="relative bg-white rounded-3xl p-10 border border-neutral-200 hover:border-black transition-all duration-500 overflow-hidden h-full flex flex-col">
         <div className="w-14 h-14 rounded-2xl bg-black flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
           <engagement.icon className="w-7 h-7 text-white" />
         </div>
@@ -614,7 +556,7 @@ const EngagementCard = ({ engagement, index, scrollYProgress }: any) => {
           {engagement.subtitle}
         </p>
 
-        <p className="text-base text-neutral-600 leading-relaxed font-light">
+        <p className="text-base text-neutral-600 leading-relaxed font-light flex-1">
           {engagement.desc}
         </p>
 
@@ -623,6 +565,7 @@ const EngagementCard = ({ engagement, index, scrollYProgress }: any) => {
     </motion.div>
   );
 };
+
 interface FormData {
   name: string;
   email: string;
@@ -630,6 +573,7 @@ interface FormData {
   phoneNumber: string;
   message: string;
 }
+
 const ContactSection = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -639,6 +583,7 @@ const ContactSection = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -673,16 +618,16 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="pb-39 relative bg-neutral-50">
+    <section id="contact" className="section-base relative bg-neutral-50">
       <div className="container mx-auto px-6 relative z-10">
         <AnimatedSection>
-          <div className="text-center mb-12">
+          <div className="text-center mb-20">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-7xl font-light mb-6 tracking-tight"
+              className="text-6xl md:text-7xl font-light mb-6 tracking-tight"
             >
               Let's Build Together
             </motion.h2>
@@ -699,12 +644,12 @@ const ContactSection = () => {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="bg-white border-neutral-200 shadow-xl rounded-3xl overflow-hidden">
+          <div className="bg-white border border-neutral-200 shadow-xl rounded-3xl overflow-hidden">
             <div className="p-12">
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide transition-colors duration-300">
+                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                       Name *
                     </label>
                     <input
@@ -719,7 +664,7 @@ const ContactSection = () => {
                     />
                   </div>
                   <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide transition-colors duration-300">
+                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                       Email *
                     </label>
                     <input
@@ -737,7 +682,7 @@ const ContactSection = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide transition-colors duration-300">
+                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                       Company *
                     </label>
                     <input
@@ -752,7 +697,7 @@ const ContactSection = () => {
                     />
                   </div>
                   <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide transition-colors duration-300">
+                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                       Phone No *
                     </label>
                     <input
@@ -773,7 +718,7 @@ const ContactSection = () => {
                 </div>
 
                 <div className="relative">
-                  <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide transition-colors duration-300">
+                  <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                     Message *
                   </label>
                   <textarea
@@ -783,7 +728,8 @@ const ContactSection = () => {
                       setFormData({ ...formData, message: e.target.value })
                     }
                     disabled={isSubmitting}
-                    className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
+                    rows={5}
+                    className="w-full bg-white outline-none border-2 border-neutral-300 text-black rounded-xl font-light px-4 py-3 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300 resize-none"
                     placeholder="Tell us about your project..."
                   />
                 </div>
@@ -791,7 +737,7 @@ const ContactSection = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-black hover:bg-neutral-800 text-white rounded-full py-4 text-lg font-light shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 hover:-translate-y-1 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full bg-black hover:bg-neutral-800 text-white rounded-full py-4 text-lg font-light shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 hover:-translate-y-1 active:translate-y-0 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                   {!isSubmitting && (
@@ -818,7 +764,6 @@ export default function App() {
       <HeroSection />
       <TeamSection />
       <Projects />
-      <Methodologies />
       <ServicesSection />
       <EngagementModels />
       <ContactSection />
