@@ -12,7 +12,7 @@ const Footer = ({
   return (
     <>
       <div ref={footerRef} className="w-full p-4 md:p-6">
-        <motion.footer className="w-full bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 text-black py-8 rounded-[1.5rem] md:py-16 md:rounded-[4rem] shadow-lg shadow-amber-200/50 backdrop-blur-3xl">
+        <motion.footer className="w-full bg-gradient-to-r from-amber-200 via-orange-300 to-amber-200 text-black py-8 rounded-2xl md:py-16 md:rounded-4xl shadow-lg shadow-amber-200/50 backdrop-blur-3xl">
           <div className="max-w-7xl mx-auto px-5 md:px-8">
             {/* Grid Layout */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-8 md:mb-12">
@@ -153,14 +153,14 @@ const Footer = ({
                 </div> */}
               </div>
             </div>
-            <div className="text-center md:mb-12">
+            {/* <div className="text-center md:mb-12">
               <h3 className="text-[5.2rem] md:text-[13rem] lg:text-[20rem] font-medium mb-2 md:mb-3 leading-[0.95] tracking-tight">
                 SMYD Global
               </h3>
               <p className="text-neutral-700 text-xs md:text-sm font-light">
                 Every AI for everyone
               </p>
-            </div>
+            </div> */}
           </div>
         </motion.footer>
       </div>
