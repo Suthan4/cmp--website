@@ -21,7 +21,6 @@ import {
 import Image from "next/image";
 import { AnimatedSection } from "./animatedSection";
 import SplashScreen from "./splashScreen";
-import OurServicesPage from "@/app/our-services/page";
 import ServicesSection from "./ourServices";
 
 const HeroSection = () => {
