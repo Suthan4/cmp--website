@@ -257,7 +257,7 @@ const TeamStackedCard = ({
 const TeamSection = () => {
   return (
     <section
-      id="projects"
+      id="team"
       className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
     >
       <div className="space-y-12">
@@ -266,13 +266,13 @@ const TeamSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-10"
         >
           <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-tight leading-none">
-            Projects We Pitched{" "}
+            Our Team
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
-            Delivering innovative solutions that make a real impact.
+            A passionate team turning ideas into impactful solutions.
           </p>
         </motion.div>
         <div className="relative" style={{ height: `${team.length * 450}px` }}>
