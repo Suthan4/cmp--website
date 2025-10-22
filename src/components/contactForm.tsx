@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "./animatedSection";
+import emailjs from "@emailjs/browser";
 
 // 1. Define Zod schema
 const contactSchema = z.object({
@@ -32,7 +33,9 @@ const ContactSection = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    control,
   } = useForm<FormData>({
+    mode: "all",
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
@@ -47,26 +50,35 @@ const ContactSection = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          phoneNumber: `${data.countryCode} ${data.phoneNumber}`,
-        }),
-      });
-      const result = await res.json();
-      setIsSubmitting(false);
-      if (result.success) {
-        alert("Email sent successfully!");
-        reset();
-      } else {
-        alert("Failed to send email");
-      }
+      // EmailJS configuration
+      // const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+      // const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+      // const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+      const publicKey = "ufJm_NWjE4Zc3_CRf";
+      const serviceId = "service_c1h9tol";
+      const templateId = "template_ct39nig";
+
+      // Template params to send
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        subject: "Contact Us",
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: `${data.countryCode}-${data.phoneNumber}`,
+        message: data.message,
+        to_email: "contact@companyname.in",
+      };
+
+      // Send email
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      reset();
     } catch (error) {
-      console.error(error);
+      console.error("EmailJS Error:", error);
+    } finally {
       setIsSubmitting(false);
-      alert("Failed to send email");
     }
   };
 
@@ -106,17 +118,36 @@ const ContactSection = () => {
                     <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                       Name *
                     </label>
-                    <input
-                      {...register("name")}
-                      disabled={isSubmitting}
-                      className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                      placeholder="John Doe"
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field: { value, onChange, ...field } }) => (
+                        <>
+                          <input
+                            {...field}
+                            type="text"
+                            pattern="[0-9]*"
+                            placeholder="John doe"
+                            maxLength={10}
+                            value={value}
+                            disabled={isSubmitting}
+                            onChange={(e) => {
+                              const cleaned = e.target.value.replace(
+                                /[^A-Za-z\s]/g,
+                                ""
+                              );
+                              onChange(cleaned); // ✅ updates form state
+                            }}
+                            className="w-full no-arrows bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
+                          />
+                          {errors.name && (
+                            <p className="text-red-500 text-sm mt-1">
+                              {errors.name.message}
+                            </p>
+                          )}
+                        </>
+                      )}
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.name.message}
-                      </p>
-                    )}
                   </div>
 
                   {/* Email */}
@@ -170,7 +201,11 @@ const ContactSection = () => {
                         className="h-14 rounded-xl border-2 border-neutral-300 bg-white px-4 outline-none focus:border-black focus:shadow-lg disabled:bg-gray-200 disabled:border-gray-300 disabled:cursor-not-allowed"
                       >
                         {countryCodes.map((code) => (
-                          <option key={code} value={code} disabled={code !== "+91"}>
+                          <option
+                            key={code}
+                            value={code}
+                            disabled={code !== "+91"}
+                          >
                             {code}
                           </option>
                         ))}
@@ -186,18 +221,36 @@ const ContactSection = () => {
                       <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                         Phone Number *
                       </label>
-                      <input
-                        {...register("phoneNumber")}
-                        type="number"
-                        disabled={isSubmitting}
-                        className="w-full no-arrows bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                        placeholder="9901211212"
+                      <Controller
+                        name="phoneNumber"
+                        control={control}
+                        render={({ field: { value, onChange, ...field } }) => (
+                          <>
+                            <input
+                              {...field}
+                              type="text"
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              placeholder="Enter 10-digit number"
+                              maxLength={10}
+                              value={value}
+                              disabled={isSubmitting}
+                              onChange={(e) => {
+                                const cleaned = e.target.value
+                                  .replace(/\D/g, "")
+                                  .slice(0, 10);
+                                onChange(cleaned); // ✅ updates form state
+                              }}
+                              className="w-full no-arrows bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
+                            />
+                            {errors.phoneNumber && (
+                              <p className="text-red-500 text-sm mt-1">
+                                {errors.phoneNumber.message}
+                              </p>
+                            )}
+                          </>
+                        )}
                       />
-                      {errors.phoneNumber && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.phoneNumber.message}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>

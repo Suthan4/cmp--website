@@ -4,6 +4,7 @@
     "": {
       "name": "cmp-web-app",
       "dependencies": {
+        "@emailjs/browser": "^4.4.1",
         "@hookform/resolvers": "^5.2.2",
         "lucide-react": "^0.546.0",
         "motion": "^12.23.24",
@@ -93,6 +94,8 @@
     "@aws-sdk/xml-builder": ["@aws-sdk/xml-builder@3.914.0", "", { "dependencies": { "@smithy/types": "^4.8.0", "fast-xml-parser": "5.2.5", "tslib": "^2.6.2" } }, "sha512-k75evsBD5TcIjedycYS7QXQ98AmOtbnxRJOPtCo0IwYRmy7UvqgS/gBL5SmrIqeV6FDSYRQMgdBxSMp6MLmdew=="],
 
     "@aws/lambda-invoke-store": ["@aws/lambda-invoke-store@0.0.1", "", {}, "sha512-ORHRQ2tmvnBXc8t/X9Z8IcSbBA4xTLKuN873FopzklHMeqBst7YG0d+AX97inkvDX+NChYtSr+qGfcqGFaI8Zw=="],
+
+    "@emailjs/browser": ["@emailjs/browser@4.4.1", "", {}, "sha512-DGSlP9sPvyFba3to2A50kDtZ+pXVp/0rhmqs2LmbMS3I5J8FSOgLwzY2Xb4qfKlOVHh29EAutLYwe5yuEZmEFg=="],
 
     "@emnapi/core": ["@emnapi/core@1.6.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "^2.4.0" } }, "sha512-zq/ay+9fNIJJtJiZxdTnXS20PllcYMX3OE23ESc4HK/bdYu3cOWYVhsOhVnXALfU/uqJIxn5NBPd9z4v+SfoSg=="],
 
