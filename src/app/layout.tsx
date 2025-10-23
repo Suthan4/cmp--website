@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AppScafold from "@/components/appScafold";
+import { ErrorBoundary } from "@/components/errorBoundary";
+import ErrorFallback from "@/components/errorFallback";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -78,7 +80,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${inter.className} antialiased`}>
-        <AppScafold>{children}</AppScafold>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <AppScafold>{children}</AppScafold>
+        </ErrorBoundary>
       </body>
     </html>
   );
