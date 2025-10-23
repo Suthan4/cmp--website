@@ -111,7 +111,7 @@ const ServicesSection = () => {
       ref={containerRef}
       className="relative bg-white py-32"
     >
-      <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="min-h-0 md:min-h-screen flex flex-col md:flex-row">
         {/* Left side - Sticky heading */}
         <div className="w-full md:w-1/2 md:sticky md:top-0 md:h-screen flex items-center justify-center md:justify-start px-6 md:px-12 lg:px-20 bg-white">
           <motion.div
@@ -141,7 +141,7 @@ const ServicesSection = () => {
       </div>
 
       {/* Mobile view - Full width cards */}
-      <div className="md:hidden bg-white py-20 px-6">
+      <div className="md:hidden bg-white py-10 px-6">
         <div className="grid grid-cols-1 gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />

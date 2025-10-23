@@ -50,7 +50,7 @@ const HeroSection = () => {
             initial="initial"
             className="flex items-center justify-center gap-0 font-light leading-[0.95] tracking-tight"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 hidden md:block md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
               <Image
                 src="/company-logo.png"
                 alt="Company Logo"
@@ -192,6 +192,7 @@ const TeamStackedCard = ({
   const targetScale = 1 - (totalCards - index - 1) * 0.05;
   const targetY = (totalCards - index - 1) * 40;
 
+
   const Icon = member.icon;
 
   return (
@@ -257,7 +258,7 @@ const TeamSection = () => {
   return (
     <section
       id="team"
-      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
+      className="max-w-6xl section-base mx-auto px-2 md:px-8 pb-32 bg-white"
     >
       <div className="space-y-12">
         <motion.div
@@ -440,7 +441,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
+      className="max-w-6xl mx-auto px-2 md:px-8 pb-32 bg-white"
     >
       <div className="space-y-12">
         <motion.div
@@ -497,7 +498,7 @@ const EngagementModels = () => {
     <section
       id="engagements"
       ref={containerRef}
-      className="relative section-base bg-white overflow-hidden"
+      className="relative px-2 md:px-8 bg-white overflow-hidden"
     >
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -508,7 +509,7 @@ const EngagementModels = () => {
           className="text-center mb-20"
         >
           <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
-            Our Engagements
+            Our <span className="text-5xl md:text-6xl">Engagements</span>
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
             Committed to delivering value beyond expectations

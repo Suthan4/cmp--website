@@ -10,7 +10,7 @@ export default function AppScafold({ children }: { children: ReactNode }) {
   return (
     <>
       <NavBar footerRef={footerRef} />
-      <main className="min-h-screen mx-auto px-4 w-full">{children}</main>
+      <main className="min-h-screen w-fit mx-auto px-4">{children}</main>
       <Footer footerRef={footerRef} />
     </>
   );

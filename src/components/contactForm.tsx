@@ -153,7 +153,7 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="section-base relative bg-neutral-50">
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-2 md:mx-6 relative z-10">
         <AnimatedSection>
           <div className="text-center mb-20">
             <motion.h2
@@ -179,7 +179,7 @@ const ContactSection = () => {
           className="max-w-3xl mx-auto"
         >
           <div className="bg-white border border-neutral-200 shadow-xl rounded-3xl overflow-hidden">
-            <div className="p-12">
+            <div className="px-2 py-6 md:p-12">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-8">
                   {/* Name */}
@@ -257,7 +257,7 @@ const ContactSection = () => {
                   </div>
 
                   {/* Phone with Flag Image */}
-                  <div className="relative flex gap-4">
+                  <div className="relative flex gap-2 md:gap-4">
                     <div>
                       <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                         Code *
@@ -276,13 +276,13 @@ const ContactSection = () => {
                                 type="button"
                                 disabled={isSubmitting}
                                 onClick={() => setOpen(!open)}
-                                className="w-full h-14 flex items-center justify-between px-3 rounded-xl border-2 border-neutral-300 bg-white focus:border-black focus:shadow-lg disabled:bg-gray-200 disabled:cursor-not-allowed"
+                                className="w-full h-14 flex items-center justify-between px-1 md:px-3 rounded-xl border-2 border-neutral-300 bg-white focus:border-black focus:shadow-lg disabled:bg-gray-200 disabled:cursor-not-allowed"
                               >
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1">
                                   <img
                                     src={selected.flag}
                                     alt={selected.country}
-                                    className="w-6 h-4 rounded-sm"
+                                    className="w-7 h-6 rounded-sm"
                                   />
                                   <span>{selected.code}</span>
                                 </div>
