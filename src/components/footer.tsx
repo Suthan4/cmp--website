@@ -124,7 +124,7 @@ const Footer = ({
               </div> */}
             </div>
             {/* Divider */}
-            <div className="border-t border-black/20 pt-6 md:pt-8 mb-12">
+            <div className="border-t border-black/20 pt-6 md:pt-8 ">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
                 <p className="text-neutral-700 text-xs md:text-xs">
                   © SMYD Global 2025. All rights reserved.

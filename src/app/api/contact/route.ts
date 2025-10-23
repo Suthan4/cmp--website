@@ -1,13 +1,23 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 export async function POST(req: Request) {
-  const { name, email, company, phoneNumber, message } = await req.json();
+  const { name, email, company, phoneNumber, message, countryCode } =
+  await req.json();
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
     auth: {
-      user: "harisuthan268@gmail.com",
-      pass: "qdjr evsm unrq gytb",
+      user: "Contactus@smyd.in",
+      pass: process.env.NEXT_PUBLIC_EMAILJS_PASS!,
     },
+    tls: {
+      ciphers: "SSLv3",
+    },
+  });
+  transporter.verify((err, success) => {
+    if (err) console.error("❌ SMTP connection failed:", err);
+    else console.log("✅ Connected to Outlook SMTP!");
   });
   try {
     await transporter.sendMail({
@@ -18,10 +28,11 @@ export async function POST(req: Request) {
 Name: ${name}
 Email: ${email}
 Company: ${company}
-Phone: ${phoneNumber}
+Phone: ${countryCode}-${phoneNumber}
 Message: ${message}
   `,
     });
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);

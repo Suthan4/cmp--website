@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
-@layer components{
-    .section-base{
+@layer components {
+    .section-base {
         @apply py-5
     }
 }
 
+@layer utilities {
+    /* Hide arrows in Chrome, Safari, Edge, Opera */
+    input.no-arrows::-webkit-inner-spin-button,
+    input.no-arrows::-webkit-outer-spin-button {
+        @apply appearance-none;
+        /* removes the arrows */
+        margin: 0;
+    }
+
+    /* Hide arrows in Firefox */
+    input.no-arrows {
+        -moz-appearance: textfield;
+    }
+}

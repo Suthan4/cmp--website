@@ -19,10 +19,9 @@ import {
   Layers,
 } from "lucide-react";
 import Image from "next/image";
-import { AnimatedSection } from "./animatedSection";
 import SplashScreen from "./splashScreen";
-import OurServicesPage from "@/app/our-services/page";
 import ServicesSection from "./ourServices";
+import ContactSection from "./contactForm";
 
 const HeroSection = () => {
   const { scrollYProgress } = useScroll();
@@ -45,13 +44,13 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          className="py-4 md:py-0"
+          className="py-4 md:py-0 mt-4 md:mt-4"
         >
           <motion.h1
             initial="initial"
             className="flex items-center justify-center gap-0 font-light leading-[0.95] tracking-tight"
           >
-            <div className="w-14 h-14 flex items-center justify-center">
+            <div className="w-10 h-10 hidden md:block md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
               <Image
                 src="/company-logo.png"
                 alt="Company Logo"
@@ -83,7 +82,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-xl text-neutral-600 mb-6 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl text-neutral-600 mb-4 max-w-4xl mx-auto leading-relaxed"
           >
             Empowering enterprises with cutting-edge artificial intelligence,
             data analytics, and cloud solutions.
@@ -193,6 +192,7 @@ const TeamStackedCard = ({
   const targetScale = 1 - (totalCards - index - 1) * 0.05;
   const targetY = (totalCards - index - 1) * 40;
 
+
   const Icon = member.icon;
 
   return (
@@ -258,7 +258,7 @@ const TeamSection = () => {
   return (
     <section
       id="team"
-      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
+      className="max-w-6xl section-base mx-auto px-2 md:px-8 pb-32 bg-white"
     >
       <div className="space-y-12">
         <motion.div
@@ -369,14 +369,14 @@ const ProjCard = ({ card, index }: { card: ProjCardData; index: number }) => {
             >
               {card.icon}
             </motion.div>
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               className="text-8xl font-bold text-neutral-100"
             >
-              0{card.id}
-            </motion.div>
+              {card.id}
+            </motion.div> */}
           </div>
 
           {/* Title */}
@@ -441,7 +441,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="max-w-6xl section-base mx-auto px-8 pb-32 bg-white"
+      className="max-w-6xl mx-auto px-2 md:px-8 pb-32 bg-white"
     >
       <div className="space-y-12">
         <motion.div
@@ -498,7 +498,7 @@ const EngagementModels = () => {
     <section
       id="engagements"
       ref={containerRef}
-      className="relative section-base bg-white overflow-hidden"
+      className="relative px-2 md:px-8 bg-white overflow-hidden"
     >
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -509,7 +509,7 @@ const EngagementModels = () => {
           className="text-center mb-20"
         >
           <h2 className="text-6xl md:text-7xl font-light mb-6 tracking-[-0.02em] leading-none">
-            Our Engagements
+            Our <span className="text-5xl md:text-6xl">Engagements</span>
           </h2>
           <p className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto font-light">
             Committed to delivering value beyond expectations
@@ -573,185 +573,6 @@ interface FormData {
   phoneNumber: string;
   message: string;
 }
-
-const ContactSection = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    company: "",
-    phoneNumber: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          phoneNumber: formData.phoneNumber,
-          message: formData.message,
-        }),
-      });
-      const data = await res.json();
-      setIsSubmitting(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phoneNumber: "",
-        message: "",
-      });
-      if (data.success) alert("Email sent successfully!");
-      else alert("Failed to send email");
-    } catch (error) {
-      console.error(error);
-      setIsSubmitting(false);
-      alert("Failed to send email");
-    }
-  };
-
-  return (
-    <section id="contact" className="section-base relative bg-neutral-50">
-      <div className="container mx-auto px-6 relative z-10">
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-6xl md:text-7xl font-light mb-6 tracking-tight"
-            >
-              Let's Build Together
-            </motion.h2>
-            <p className="text-xl text-neutral-600 max-w-2xl mx-auto font-light">
-              Ready to transform your business? Get in touch with us today.
-            </p>
-          </div>
-        </AnimatedSection>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto"
-        >
-          <div className="bg-white border border-neutral-200 shadow-xl rounded-3xl overflow-hidden">
-            <div className="p-12">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
-                      Name *
-                    </label>
-                    <input
-                      required
-                      value={formData.name}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      disabled={isSubmitting}
-                      className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
-                      Email *
-                    </label>
-                    <input
-                      required
-                      type="email"
-                      value={formData.email}
-                      disabled={isSubmitting}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
-                      Company *
-                    </label>
-                    <input
-                      required
-                      value={formData.company}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setFormData({ ...formData, company: e.target.value })
-                      }
-                      disabled={isSubmitting}
-                      className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                      placeholder="Your Company Inc."
-                    />
-                  </div>
-                  <div className="relative">
-                    <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
-                      Phone No *
-                    </label>
-                    <input
-                      required
-                      type="number"
-                      value={formData.phoneNumber}
-                      disabled={isSubmitting}
-                      className="w-full bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
-                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setFormData({
-                          ...formData,
-                          phoneNumber: e.target.value,
-                        })
-                      }
-                      placeholder="+91 0990121121"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
-                    Message *
-                  </label>
-                  <textarea
-                    required
-                    value={formData.message}
-                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    disabled={isSubmitting}
-                    rows={5}
-                    className="w-full bg-white outline-none border-2 border-neutral-300 text-black rounded-xl font-light px-4 py-3 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg focus:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300 resize-none"
-                    placeholder="Tell us about your project..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-black hover:bg-neutral-800 text-white rounded-full py-4 text-lg font-light shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 hover:-translate-y-1 active:translate-y-0 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                  {!isSubmitting && (
-                    <ArrowRight className="ml-2 w-5 h-5 inline transition-transform duration-300 group-hover:translate-x-1" />
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);

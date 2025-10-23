@@ -342,7 +342,8 @@ export default function PrivacyPolicy() {
             </li>
           </ul>
           <p className="mt-4">
-            To exercise these rights, please contact us at privacy@smydglobal.in
+            To exercise these rights, please contact us at{" "}
+            <strong>contactus@smyd.in</strong>
           </p>
         </Section>
 
@@ -412,17 +413,13 @@ export default function PrivacyPolicy() {
           <div className="mt-4 p-6 bg-neutral-50 border border-neutral-200 rounded-lg">
             <p className="font-bold text-black text-lg mb-3">SMYD Global</p>
             <p className="text-neutral-700">
-              <strong>Email:</strong> privacy@smydglobal.in
-            </p>
-            <p className="text-neutral-700 mt-2">
-              <strong>Address:</strong> [Your Company Address]
+              <strong>Email:</strong> contactus@smyd.in
             </p>
             <p className="text-neutral-600 mt-4 text-sm">
-              We will respond to your inquiry within 30 days.
+              We will respond to your inquiry as soon as possible.
             </p>
           </div>
         </Section>
-
       </div>
     </div>
   );

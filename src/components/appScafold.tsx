@@ -2,6 +2,7 @@
 import React, { ReactNode, useRef } from "react";
 import NavBar from "./navBar";
 import Footer from "./footer";
+import { ErrorBoundary } from "./errorBoundary";
 
 export default function AppScafold({ children }: { children: ReactNode }) {
   const footerRef = useRef<HTMLDivElement>(null);
@@ -9,7 +10,7 @@ export default function AppScafold({ children }: { children: ReactNode }) {
   return (
     <>
       <NavBar footerRef={footerRef} />
-      <main className="min-h-screen mx-auto px-4 w-full">{children}</main>
+      <main className="min-h-screen w-fit mx-auto px-4">{children}</main>
       <Footer footerRef={footerRef} />
     </>
   );
