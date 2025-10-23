@@ -45,13 +45,13 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          className="py-4 md:py-0"
+          className="py-4 md:py-0 mt-4 md:mt-4"
         >
           <motion.h1
             initial="initial"
             className="flex items-center justify-center gap-0 font-light leading-[0.95] tracking-tight"
           >
-            <div className="w-14 h-14 flex items-center justify-center">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0">
               <Image
                 src="/company-logo.png"
                 alt="Company Logo"
@@ -83,7 +83,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-xl text-neutral-600 mb-6 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl text-neutral-600 mb-4 max-w-4xl mx-auto leading-relaxed"
           >
             Empowering enterprises with cutting-edge artificial intelligence,
             data analytics, and cloud solutions.

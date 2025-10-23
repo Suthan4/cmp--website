@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     secure: false,
     auth: {
       user: "Contactus@smyd.in",
-      pass: "Happyfaceme@2001",
+      pass: process.env.NEXT_PUBLIC_EMAILJS_PASS!,
     },
     tls: {
       ciphers: "SSLv3",

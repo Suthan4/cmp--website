@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         alt: "SMYD Global",
       },
     ],
-    siteName: "SMYPD Global",
+    siteName: "SMYD Global",
   },
   twitter: {
     card: "summary_large_image",

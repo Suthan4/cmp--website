@@ -51,12 +51,9 @@ const ContactSection = () => {
     setIsSubmitting(true);
     try {
       // EmailJS configuration
-      // const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
-      // const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-      // const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-      const publicKey = "ufJm_NWjE4Zc3_CRf";
-      const serviceId = "service_c1h9tol";
-      const templateId = "template_ct39nig";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 
       // Template params to send
       const templateParams = {
@@ -68,7 +65,7 @@ const ContactSection = () => {
         company: data.company,
         phone: `${data.countryCode}-${data.phoneNumber}`,
         message: data.message,
-        to_email: "contact@companyname.in",
+        to_email: "contactus@smyd.in",
       };
 
       // Send email
@@ -126,9 +123,7 @@ const ContactSection = () => {
                           <input
                             {...field}
                             type="text"
-                            pattern="[0-9]*"
                             placeholder="John doe"
-                            maxLength={10}
                             value={value}
                             disabled={isSubmitting}
                             onChange={(e) => {
