@@ -1,9 +1,11 @@
-import { useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+"use client";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { AnimatedSection } from "./animatedSection";
 import emailjs from "@emailjs/browser";
 
@@ -22,11 +24,68 @@ const contactSchema = z.object({
 
 type FormData = z.infer<typeof contactSchema>;
 
-// 2. Country code options
-const countryCodes = ["+91", "+1", "+44", "+61"];
+// 2. Country code options with flag images from flagcdn.com
+const countryCodes = [
+  {
+    code: "+1",
+    flag: "https://flagcdn.com/w20/us.png",
+    flag2x: "https://flagcdn.com/w40/us.png",
+    country: "USA",
+  },
+  {
+    code: "+44",
+    flag: "https://flagcdn.com/w20/gb.png",
+    flag2x: "https://flagcdn.com/w40/gb.png",
+    country: "UK",
+  },
+  {
+    code: "+971",
+    flag: "https://flagcdn.com/w20/ae.png",
+    flag2x: "https://flagcdn.com/w40/ae.png",
+    country: "UAE",
+  },
+  {
+    code: "+966",
+    flag: "https://flagcdn.com/w20/sa.png",
+    flag2x: "https://flagcdn.com/w40/sa.png",
+    country: "Saudi Arabia",
+  },
+  {
+    code: "+974",
+    flag: "https://flagcdn.com/w20/qa.png",
+    flag2x: "https://flagcdn.com/w40/qa.png",
+    country: "Qatar",
+  },
+  {
+    code: "+61",
+    flag: "https://flagcdn.com/w20/au.png",
+    flag2x: "https://flagcdn.com/w40/au.png",
+    country: "Australia",
+  },
+  {
+    code: "+91",
+    flag: "https://flagcdn.com/w20/in.png",
+    flag2x: "https://flagcdn.com/w40/in.png",
+    country: "India",
+  },
+  {
+    code: "+60",
+    flag: "https://flagcdn.com/w20/my.png",
+    flag2x: "https://flagcdn.com/w40/my.png",
+    country: "Malaysia",
+  },
+  {
+    code: "+94",
+    flag: "https://flagcdn.com/w20/lk.png",
+    flag2x: "https://flagcdn.com/w40/lk.png",
+    country: "Sri Lanka",
+  },
+];
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -46,6 +105,19 @@ const ContactSection = () => {
       message: "",
     },
   });
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -123,7 +195,7 @@ const ContactSection = () => {
                           <input
                             {...field}
                             type="text"
-                            placeholder="John doe"
+                            placeholder="John Doe"
                             value={value}
                             disabled={isSubmitting}
                             onChange={(e) => {
@@ -131,7 +203,7 @@ const ContactSection = () => {
                                 /[^A-Za-z\s]/g,
                                 ""
                               );
-                              onChange(cleaned); // ✅ updates form state
+                              onChange(cleaned);
                             }}
                             className="w-full no-arrows bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
                           />
@@ -184,27 +256,70 @@ const ContactSection = () => {
                     )}
                   </div>
 
-                  {/* Phone */}
+                  {/* Phone with Flag Image */}
                   <div className="relative flex gap-4">
                     <div>
                       <label className="text-sm text-neutral-600 mb-3 block font-light tracking-wide">
                         Code *
                       </label>
-                      <select
-                        {...register("countryCode")}
-                        disabled={isSubmitting}
-                        className="h-14 rounded-xl border-2 border-neutral-300 bg-white px-4 outline-none focus:border-black focus:shadow-lg disabled:bg-gray-200 disabled:border-gray-300 disabled:cursor-not-allowed"
-                      >
-                        {countryCodes.map((code) => (
-                          <option
-                            key={code}
-                            value={code}
-                            disabled={code !== "+91"}
-                          >
-                            {code}
-                          </option>
-                        ))}
-                      </select>
+                      <Controller
+                        name="countryCode"
+                        control={control}
+                        render={({ field }) => {
+                          const selected =
+                            countryCodes.find((c) => c.code === field.value) ||
+                            countryCodes[0];
+
+                          return (
+                            <div className="relative w-28" ref={dropdownRef}>
+                              <button
+                                type="button"
+                                disabled={isSubmitting}
+                                onClick={() => setOpen(!open)}
+                                className="w-full h-14 flex items-center justify-between px-3 rounded-xl border-2 border-neutral-300 bg-white focus:border-black focus:shadow-lg disabled:bg-gray-200 disabled:cursor-not-allowed"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <img
+                                    src={selected.flag}
+                                    alt={selected.country}
+                                    className="w-6 h-4 rounded-sm"
+                                  />
+                                  <span>{selected.code}</span>
+                                </div>
+                                <span
+                                  className={`transition-transform ${
+                                    open ? "rotate-180" : ""
+                                  }`}
+                                >
+                                  <ChevronDown />
+                                </span>
+                              </button>
+
+                              {open && (
+                                <ul className="absolute z-10 w-full mt-1 bg-white border border-neutral-300 rounded-xl shadow-lg max-h-60 overflow-auto">
+                                  {countryCodes.map((item) => (
+                                    <li
+                                      key={item.code}
+                                      onClick={() => {
+                                        field.onChange(item.code);
+                                        setOpen(false);
+                                      }}
+                                      className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-neutral-100"
+                                    >
+                                      <img
+                                        src={item.flag}
+                                        alt={item.country}
+                                        className="w-6 h-4 rounded-sm"
+                                      />
+                                      <span>{item.code}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          );
+                        }}
+                      />
                       {errors.countryCode && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.countryCode.message}
@@ -234,7 +349,7 @@ const ContactSection = () => {
                                 const cleaned = e.target.value
                                   .replace(/\D/g, "")
                                   .slice(0, 10);
-                                onChange(cleaned); // ✅ updates form state
+                                onChange(cleaned);
                               }}
                               className="w-full no-arrows bg-white outline-none border-2 border-neutral-300 text-black h-14 rounded-xl font-light px-4 transition-all duration-300 ease-in-out focus:border-black focus:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-300"
                             />
