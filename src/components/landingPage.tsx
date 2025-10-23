@@ -19,7 +19,6 @@ import {
   Layers,
 } from "lucide-react";
 import Image from "next/image";
-import { AnimatedSection } from "./animatedSection";
 import SplashScreen from "./splashScreen";
 import ServicesSection from "./ourServices";
 import ContactSection from "./contactForm";
