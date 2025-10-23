@@ -53,9 +53,9 @@ const Section = ({
   return (
     <RevealText delay={delay}>
       <div className="mb-12">
-        <div className="flex items-start gap-4 mb-4">
+        <div className="flex items-end gap-4 mb-4">
           {number && (
-            <span className="text-4xl font-bold text-neutral-300 leading-none">
+            <span className="text-4xl font-bold text-neutral-700 leading-none">
               {number}
             </span>
           )}
@@ -431,7 +431,7 @@ export default function TermsConditions() {
           <SubSection title="Termination by You">
             <p>
               You may terminate your account and stop using our services at any
-              time by contacting us at support@smydglobal.in
+              time by contacting us at contactus@smyd.in
             </p>
           </SubSection>
           <SubSection title="Termination by Us">
@@ -556,19 +556,10 @@ export default function TermsConditions() {
           <div className="mt-6 p-6 bg-neutral-50 border border-neutral-200 rounded-lg">
             <p className="font-bold text-black text-lg mb-3">SMYD Global</p>
             <p className="text-neutral-700">
-              <strong>Email:</strong> legal@smydglobal.in
-            </p>
-            <p className="text-neutral-700 mt-2">
-              <strong>Support:</strong> support@smydglobal.in
-            </p>
-            <p className="text-neutral-700 mt-2">
-              <strong>Address:</strong> [Your Company Address]
-            </p>
-            <p className="text-neutral-700 mt-2">
-              <strong>Phone:</strong> [Your Contact Number]
+              <strong>Email:</strong> contactus@smyd.in
             </p>
             <p className="text-neutral-600 mt-4 text-sm">
-              We aim to respond to all inquiries within 48-72 hours.
+              We will respond to your inquiry as soon as possible.
             </p>
           </div>
         </Section>
@@ -580,20 +571,6 @@ export default function TermsConditions() {
             THEM.
           </p>
         </Section>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.8 }}
-          className="mt-20 pt-8 border-t border-neutral-300 text-center text-sm text-neutral-500"
-        >
-          <p>© 2025 SMYD Global. All rights reserved.</p>
-          <p className="mt-2">IT Services Company | Registered in India</p>
-          <p className="mt-4 text-xs">
-            For Privacy Policy, Cookie Policy, and other legal documents, please
-            visit our website.
-          </p>
-        </motion.div>
       </div>
     </div>
   );

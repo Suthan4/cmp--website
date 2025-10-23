@@ -130,7 +130,7 @@ export default function CookiePolicy() {
           <p>
             This Cookie Policy explains how our <strong>SMYD Global </strong> IT
             service company ("we," "us," or "our") uses cookies and similar
-            technologies on our website operating under the .in domain. This
+            technologies on our website operating under the https://smyd.in domain. This
             policy applies to all visitors and users of our services.
           </p>
           <p>
@@ -303,7 +303,7 @@ export default function CookiePolicy() {
         {/* Compliance */}
         <Section title="Legal Compliance" delay={0.65}>
           <p>
-            As an Indian company operating under the .in domain, we comply with
+            As an Indian company operating under the https://smyd.in domain, we comply with
             applicable Indian laws and regulations, including:
           </p>
           <ul className="list-none space-y-2 mt-4 ml-4">
@@ -355,7 +355,7 @@ export default function CookiePolicy() {
           </p>
           <div className="mt-4 p-6 bg-neutral-50 border border-neutral-200 rounded-lg">
             <p className="font-medium text-black">
-              Email: privacy@yourcompany.in
+              Email: contactus@smyd.in
             </p>
             <p className="text-neutral-600 mt-2">
               We will respond to your inquiry as soon as possible.
