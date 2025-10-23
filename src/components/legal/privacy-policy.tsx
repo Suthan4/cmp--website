@@ -342,7 +342,8 @@ export default function PrivacyPolicy() {
             </li>
           </ul>
           <p className="mt-4">
-            To exercise these rights, please contact us at contactus@smyd.in
+            To exercise these rights, please contact us at{" "}
+            <strong>contactus@smyd.in</strong>
           </p>
         </Section>
 

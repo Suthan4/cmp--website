@@ -431,7 +431,7 @@ export default function TermsConditions() {
           <SubSection title="Termination by You">
             <p>
               You may terminate your account and stop using our services at any
-              time by contacting us at contactus@smyd.in
+              time by contacting us at <strong>contactus@smyd.in</strong>
             </p>
           </SubSection>
           <SubSection title="Termination by Us">
