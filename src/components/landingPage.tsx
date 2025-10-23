@@ -368,14 +368,14 @@ const ProjCard = ({ card, index }: { card: ProjCardData; index: number }) => {
             >
               {card.icon}
             </motion.div>
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               className="text-8xl font-bold text-neutral-100"
             >
-              0{card.id}
-            </motion.div>
+              {card.id}
+            </motion.div> */}
           </div>
 
           {/* Title */}
