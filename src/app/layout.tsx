@@ -42,10 +42,11 @@ export const metadata: Metadata = {
     "max-snippet": -1,
   },
   openGraph: {
-    type: "website",
+    type: "article",
     locale: "en_IN",
     url: "www.smyd.in",
     title: "SMYD Global - IT Service",
+    publishedTime: "2025-10-20T09:00:00+05:30",
     description:
       "SMYD Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
     images: [
