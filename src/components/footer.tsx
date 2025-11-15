@@ -54,14 +54,6 @@ const Footer = ({
                       Blog
                     </a>
                   </li>
-                  <li>
-                    <Link
-                      href="/our-services"
-                      className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
-                    >
-                      Services
-                    </Link>
-                  </li>
                 </ul>
               </div>
 
@@ -72,28 +64,28 @@ const Footer = ({
                 </h4>
                 <ul className="space-y-2 md:space-y-3">
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/privacy-policy"
                       className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
                     >
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/terms-and-conditions"
                       className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
                     >
                       Terms & Conditions
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/cookie-policy"
                       className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
                     >
                       Cookie Policy
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -132,7 +124,7 @@ const Footer = ({
               </div> */}
             </div>
             {/* Divider */}
-            <div className="border-t border-black/20 pt-6 md:pt-8 mb-12">
+            <div className="border-t border-black/20 pt-6 md:pt-8 ">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
                 <p className="text-neutral-700 text-xs md:text-xs">
                   © SMYD Global 2025. All rights reserved.

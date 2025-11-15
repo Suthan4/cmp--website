@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AppScafold from "@/components/appScafold";
+import { ErrorBoundary } from "@/components/errorBoundary";
+import ErrorFallback from "@/components/errorFallback";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     template: "SMYD Global",
   },
   description:
-    "SYMP Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
+    "SMYD Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
   keywords: [
     "IT services in India",
     "software development company in India",
@@ -40,21 +42,22 @@ export const metadata: Metadata = {
     "max-snippet": -1,
   },
   openGraph: {
-    type: "website",
+    type: "article",
     locale: "en_IN",
     url: "www.smyd.in",
-    title: "SYMp Global - IT Service",
+    title: "SMYD Global - IT Service",
+    publishedTime: "2025-10-20T09:00:00+05:30",
     description:
-      "SYMP Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
+      "SMYD Global delivers innovative IT services and digital solutions designed to help businesses streamline operations, enhance security, and accelerate growth in a connected world.",
     images: [
       {
         url: "/company-logo.png",
         width: 1200,
         height: 630,
-        alt: "SYMP Global",
+        alt: "SMYD Global",
       },
     ],
-    siteName: "SMYPD Global",
+    siteName: "SMYD Global",
   },
   twitter: {
     card: "summary_large_image",
@@ -78,7 +81,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${inter.className} antialiased`}>
-        <AppScafold>{children}</AppScafold>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <AppScafold>{children}</AppScafold>
+        </ErrorBoundary>
       </body>
     </html>
   );
