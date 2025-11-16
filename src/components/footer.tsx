@@ -81,6 +81,30 @@ const Footer = ({
                   </li>
                   <li>
                     <Link
+                      href="/cancellation&refund"
+                      className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
+                    >
+                      Cancellation & Refund Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/shipping-policy"
+                      className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
+                    >
+                      Shipping Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact-us"
+                      className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       href="/cookie-policy"
                       className="text-neutral-700 hover:text-black transition-colors text-xs md:text-sm"
                     >
