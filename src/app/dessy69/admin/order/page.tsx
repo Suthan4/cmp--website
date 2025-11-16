@@ -211,7 +211,6 @@ export default function AdminOrders() {
                             order.status
                           )}`}
                         >
-                          
                           {
                             order.status === "pending" ? "payment-failure/pending" : order.status.toUpperCase()
                           }
