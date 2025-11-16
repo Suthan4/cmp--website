@@ -73,9 +73,9 @@ export default function MenuLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-black ">
       {/* Main Content */}
-      <main className="py-8">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

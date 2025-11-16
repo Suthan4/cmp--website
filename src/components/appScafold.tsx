@@ -9,7 +9,7 @@ export default function AppScafold({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   // Routes that should not have NavBar and Footer
-  const excludedRoutes = ["/dessy69/menu"];
+  const excludedRoutes = ["/dessy69"];
   const shouldExcludeLayout = excludedRoutes.some((route) =>
     pathname.startsWith(route)
   );
