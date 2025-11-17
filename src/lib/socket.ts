@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = "https://smyd.in";
+const SOCKET_URL = "https://smyd-backend.onrender.com";
 
 let socket: Socket | null = null;
 
@@ -12,12 +12,14 @@ export const initializeSocket = (): Socket => {
 
   if (!socket) {
     socket = io(SOCKET_URL, {
-      transports: ["websocket", "polling"],
+      transports: ["polling", "websocket"],
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionAttempts: 5,
       autoConnect: true,
       forceNew: false,
+      withCredentials: true, // ⚠️ Add this to match server CORS
+      path: "/socket.io/",
     });
 
     socket.on("connect", () => {
