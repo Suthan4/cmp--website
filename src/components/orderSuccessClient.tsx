@@ -29,46 +29,203 @@ export default function OrderSuccessClient() {
     }
   };
 
-  const downloadReceipt = () => {
-    if (!order) return;
+//   const downloadReceipt = () => {
+//     if (!order) return;
 
-    const receiptContent = `
-DESSY 69 - ORDER RECEIPT
-========================
+//     const receiptContent = `
+// DESSY 69 - ORDER RECEIPT
+// ========================
 
-Order ID: ${order.orderId}
-Customer: ${order.customerName}
-Phone: ${order.customerPhone}
-Date: ${new Date(order.createdAt).toLocaleString()}
+// Order ID: ${order.orderId}
+// Customer: ${order.customerName}
+// Phone: ${order.customerPhone}
+// Date: ${new Date(order.createdAt).toLocaleString()}
 
-ITEMS:
-${order.items
-  .map(
-    (item) =>
-      `${item.name} x${item.quantity} - ₹${
-        parseFloat(item.price) * item.quantity
-      }`
-  )
-  .join("\n")}
+// ITEMS:
+// ${order.items
+//   .map(
+//     (item) =>
+//       `${item.name} x${item.quantity} - ₹${
+//         parseFloat(item.price) * item.quantity
+//       }`
+//   )
+//   .join("\n")}
 
-Subtotal: ₹${order.subtotal}
-${order.discount > 0 ? `Discount: -₹${order.discount}\n` : ""}Total: ₹${
-      order.total
+// Subtotal: ₹${order.subtotal}
+// ${order.discount > 0 ? `Discount: -₹${order.discount}\n` : ""}Total: ₹${
+//       order.total
+//     }
+
+// Status: ${order.status.toUpperCase()}
+// Payment: ${order.paymentStatus.toUpperCase()}
+
+// Thank you for ordering!
+//     `;
+
+//     const blob = new Blob([receiptContent], { type: "text/plain" });
+//     const url = URL.createObjectURL(blob);
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.download = `receipt-${order.orderId}.txt`;
+//     link.click();
+//   };
+const downloadReceipt = async () => {
+  if (!order) return;
+
+  try {
+    // Dynamically import jsPDF
+    const { jsPDF } = await import("jspdf");
+    const doc = new jsPDF();
+
+    // Set colors
+    const orange: [number, number, number] = [249, 115, 22];
+    const gray: [number, number, number] = [107, 114, 128];
+    const black: [number, number, number] = [0, 0, 0];
+
+    // Header
+    doc.setFontSize(24);
+    doc.setTextColor(...orange);
+    doc.text("DESSY 69", 105, 20, { align: "center" });
+
+    doc.setFontSize(12);
+    doc.setTextColor(...gray);
+    doc.text("ORDER RECEIPT", 105, 28, { align: "center" });
+
+    doc.setDrawColor(...orange);
+    doc.setLineWidth(0.5);
+    doc.line(20, 32, 190, 32);
+
+    // Order details
+    let yPos = 45;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("Order ID", 20, yPos);
+    doc.setFontSize(14);
+    doc.setTextColor(...black);
+    doc.setFont("helvetica", "bold");
+    doc.text(order.orderId, 20, yPos + 6);
+    doc.setFont("helvetica", "normal");
+
+    yPos += 20;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("Customer", 20, yPos);
+    doc.setFontSize(11);
+    doc.setTextColor(...black);
+    doc.text(order.customerName, 20, yPos + 6);
+    doc.setTextColor(...gray);
+    doc.text(order.customerPhone, 20, yPos + 12);
+
+    yPos += 22;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("Date", 20, yPos);
+    doc.setTextColor(...black);
+    doc.text(new Date(order.createdAt).toLocaleString(), 20, yPos + 6);
+
+    // Items
+    yPos += 20;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("ITEMS", 20, yPos);
+    yPos += 5;
+
+    order.items.forEach((item) => {
+      yPos += 7;
+      doc.setTextColor(...black);
+      doc.setFontSize(10);
+      doc.text(`${item.name} x${item.quantity}`, 20, yPos);
+      doc.text(`₹${parseFloat(item.price) * item.quantity}`, 190, yPos, {
+        align: "right",
+      });
+      doc.setDrawColor(238, 238, 238);
+      doc.setLineWidth(0.1);
+      doc.line(20, yPos + 2, 190, yPos + 2);
+    });
+
+    // Totals
+    yPos += 12;
+    doc.setDrawColor(...black);
+    doc.setLineWidth(0.5);
+    doc.line(20, yPos, 190, yPos);
+    yPos += 8;
+
+    doc.setFontSize(10);
+    doc.setTextColor(...black);
+    doc.text("Subtotal", 20, yPos);
+    doc.text(`₹${order.subtotal}`, 190, yPos, { align: "right" });
+
+    if (order.discount > 0) {
+      yPos += 7;
+      doc.text("Discount", 20, yPos);
+      doc.text(`-₹${order.discount}`, 190, yPos, { align: "right" });
     }
 
-Status: ${order.status.toUpperCase()}
-Payment: ${order.paymentStatus.toUpperCase()}
+    yPos += 12;
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(...orange);
+    doc.text("TOTAL PAID", 20, yPos);
+    doc.text(`₹${order.total}`, 190, yPos, { align: "right" });
+    doc.setFont("helvetica", "normal");
 
-Thank you for ordering!
-    `;
+    // Status
+    yPos += 15;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("Status", 20, yPos);
+    doc.setTextColor(...black);
+    doc.text(order.status.toUpperCase(), 60, yPos);
 
-    const blob = new Blob([receiptContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `receipt-${order.orderId}.txt`;
-    link.click();
-  };
+    doc.setTextColor(...gray);
+    doc.text("Payment", 120, yPos);
+    doc.setTextColor(...black);
+    doc.text(order.paymentStatus.toUpperCase(), 160, yPos);
+
+    // Tracking section
+    yPos += 15;
+    doc.setFillColor(254, 243, 199);
+    doc.roundedRect(20, yPos, 170, 20, 3, 3, "F");
+
+    yPos += 7;
+    doc.setFontSize(9);
+    doc.setTextColor(...gray);
+    doc.text("Track your order live:", 105, yPos, { align: "center" });
+
+    yPos += 7;
+    doc.setFontSize(10);
+    doc.setTextColor(...orange);
+    doc.textWithLink(
+      `https://smyd.in/dessy69/track?orderId=${order.orderId}`,
+      105,
+      yPos,
+      {
+        align: "center",
+        url: `https://smyd.in/dessy69/track?orderId=${order.orderId}`,
+      }
+    );
+
+    // Footer
+    yPos += 15;
+    doc.setFontSize(10);
+    doc.setTextColor(...gray);
+    doc.text("Thank you for ordering from DESSY 69!", 105, yPos, {
+      align: "center",
+    });
+
+    yPos += 7;
+    doc.setFontSize(9);
+    doc.text("Contact us: +91 88385 62459", 105, yPos, {
+      align: "center",
+    });
+
+    // Save PDF
+    doc.save(`receipt-${order.orderId}.pdf`);
+  } catch (error) {
+    console.error("Failed to generate PDF:", error);
+    alert("Failed to download receipt. Please try again.");
+  }
+};
 
   if (loading) {
     return (

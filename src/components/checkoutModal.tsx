@@ -4,6 +4,7 @@ import { X, Loader2, Tag, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { orderAPI, OrderItem } from "@/lib/orderApi";
 import { couponAPI, Coupon } from "@/lib/coupon";
+import { useRouter } from "next/navigation";
 
 declare global {
   interface Window {
@@ -37,6 +38,8 @@ export default function CheckoutModal({
   const [availableCoupons, setAvailableCoupons] = useState<Coupon[]>([]);
   const [showCouponDropdown, setShowCouponDropdown] = useState(false);
   const [loadingCoupons, setLoadingCoupons] = useState(false);
+
+  const router = useRouter();
 
   const subtotal = items.reduce(
     (sum, item) => sum + parseFloat(item.price) * item.quantity,
@@ -145,7 +148,7 @@ export default function CheckoutModal({
               razorpaySignature: response.razorpay_signature,
             });
 
-            window.location.href = `/dessy69/order-success?orderId=${orderId}`;
+            router.push(`/dessy69/order-success?orderId=${orderId}`);
           } catch (error) {
             alert("Payment verification failed. Please contact support.");
             console.error("Payment verification error:", error);
@@ -238,9 +241,12 @@ export default function CheckoutModal({
                 Phone
               </label>
               <input
-                type="tel"
+                type="text"
                 required
-                pattern="[6-9][0-9]{9}"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={10}
+                minLength={10}
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-orange-500 focus:outline-none"

@@ -14,11 +14,11 @@ export default function AdminOrders() {
 
   const statusFilters = [
     { id: "all", label: "All Orders", count: 0 },
-    { id: "pending", label: "Pending", count: 0 },
     { id: "confirmed", label: "Confirmed", count: 0 },
     { id: "preparing", label: "Preparing", count: 0 },
     { id: "ready", label: "Ready", count: 0 },
     { id: "completed", label: "Completed", count: 0 },
+    { id: "pending", label: "Pending", count: 0 },
     { id: "cancelled", label: "Cancelled", count: 0 },
   ];
 
