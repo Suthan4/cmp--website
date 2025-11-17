@@ -367,9 +367,19 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Search, X, Loader2, WifiOff, ShoppingCart, Plus } from "lucide-react";
+import {
+  Search,
+  X,
+  Loader2,
+  WifiOff,
+  ShoppingCart,
+  Plus,
+  Wifi,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { menuAPI, MenuItem } from "@/lib/api";
+import { initializeSocket, disconnectSocket } from "@/lib/socket";
+import type { Socket } from "socket.io-client";
 import Cart from "@/components/cart";
 import CheckoutModal from "@/components/checkoutModal";
 
@@ -387,8 +397,9 @@ export default function MenuClient() {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [imageError, setImageError] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [particles, setParticles] = useState<
     {
       startX: number;
@@ -411,6 +422,80 @@ export default function MenuClient() {
     { id: "desserts", label: "Desserts", emoji: "🍰" },
     { id: "beverages", label: "Drinks", emoji: "🥤" },
   ];
+
+  // Initialize Socket.IO
+  useEffect(() => {
+    const socketInstance = initializeSocket();
+    setSocket(socketInstance);
+
+    if (socketInstance.connected) {
+      setIsConnected(true);
+      socketInstance.emit("join-menu");
+    }
+
+    socketInstance.on("connect", () => {
+      setIsConnected(true);
+      socketInstance.emit("join-menu");
+    });
+
+    socketInstance.on("disconnect", () => {
+      setIsConnected(false);
+    });
+
+    socketInstance.on("menu-item-created", (newItem: MenuItem) => {
+      console.log("🆕 New menu item:", newItem);
+      if (newItem.available) {
+        setMenuItems((prev) => [newItem, ...prev]);
+      }
+    });
+
+    socketInstance.on("menu-item-updated", (updatedItem: MenuItem) => {
+      console.log("✏️ Menu item updated:", updatedItem);
+      setMenuItems((prev) => {
+        const exists = prev.some((item) => item._id === updatedItem._id);
+
+        if (updatedItem.available) {
+          if (exists) {
+            return prev.map((item) =>
+              item._id === updatedItem._id ? updatedItem : item
+            );
+          } else {
+            return [updatedItem, ...prev];
+          }
+        } else {
+          return prev.filter((item) => item._id !== updatedItem._id);
+        }
+      });
+    });
+
+    socketInstance.on("menu-item-toggled", (toggledItem: MenuItem) => {
+      console.log("🔄 Menu item toggled:", toggledItem);
+      setMenuItems((prev) => {
+        if (toggledItem.available) {
+          const exists = prev.some((item) => item._id === toggledItem._id);
+          if (exists) {
+            return prev.map((item) =>
+              item._id === toggledItem._id ? toggledItem : item
+            );
+          } else {
+            return [toggledItem, ...prev];
+          }
+        } else {
+          return prev.filter((item) => item._id !== toggledItem._id);
+        }
+      });
+    });
+
+    socketInstance.on("menu-item-deleted", (deletedItemId: string) => {
+      console.log("🗑️ Menu item deleted:", deletedItemId);
+      setMenuItems((prev) => prev.filter((item) => item._id !== deletedItemId));
+    });
+
+    return () => {
+      socketInstance.emit("leave-menu");
+      disconnectSocket();
+    };
+  }, []);
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -474,7 +559,7 @@ export default function MenuClient() {
     return acc;
   }, {} as Record<string, MenuItem[]>);
 
-  // Cart functions
+  // Cart functions - Updated to sync with card quantities
   const addToCart = (item: MenuItem) => {
     const existingItem = cartItems.find((ci) => ci.id === item._id);
     if (existingItem) {
@@ -496,8 +581,24 @@ export default function MenuClient() {
     }
   };
 
+  const removeFromCart = (itemId: string) => {
+    const existingItem = cartItems.find((ci) => ci.id === itemId);
+    if (existingItem && existingItem.quantity > 1) {
+      setCartItems(
+        cartItems.map((ci) =>
+          ci.id === itemId ? { ...ci, quantity: ci.quantity - 1 } : ci
+        )
+      );
+    } else {
+      setCartItems(cartItems.filter((ci) => ci.id !== itemId));
+    }
+  };
+
   const updateQuantity = (id: string, quantity: number) => {
-    if (quantity < 1) return;
+    if (quantity < 1) {
+      setCartItems(cartItems.filter((item) => item.id !== id));
+      return;
+    }
     setCartItems(
       cartItems.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
@@ -518,17 +619,41 @@ export default function MenuClient() {
     router.push(`/dessy69/order-success?orderId=${orderId}`);
   };
 
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  // Calculate number of unique items (not total quantity)
+  const cartItemCount = cartItems.length;
+
+  // Calculate total price
+  const cartTotal = cartItems.reduce(
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
+    0
+  );
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Connection Status Indicator */}
+      <div className="fixed top-4 right-4 z-50">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className={`flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-sm ${
+            isConnected
+              ? "bg-green-500/20 text-green-400 border border-green-500/30"
+              : "bg-gray-500/20 text-gray-400 border border-gray-500/30"
+          }`}
+        >
+          {isConnected ? <Wifi size={14} /> : <WifiOff size={14} />}
+          <span className="text-xs font-medium">
+            {isConnected ? "Live" : "Connecting..."}
+          </span>
+        </motion.div>
+      </div>
+
       {/* Simplified Background */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-80">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.1),transparent_50%)]" />
       </div>
 
       {/* Floating particles */}
-      {/* Fewer Floating particles for mobile performance */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {particles.map((p, i) => (
           <motion.div
@@ -689,7 +814,9 @@ export default function MenuClient() {
                           categoryInfo?.label || category
                         }`}
                         items={items}
+                        cartItems={cartItems}
                         onAddToCart={addToCart}
+                        onRemoveFromCart={removeFromCart}
                       />
                     );
                   })}
@@ -698,7 +825,9 @@ export default function MenuClient() {
                 <MenuSection
                   title=""
                   items={menuItems}
+                  cartItems={cartItems}
                   onAddToCart={addToCart}
+                  onRemoveFromCart={removeFromCart}
                 />
               )}
 
@@ -722,19 +851,28 @@ export default function MenuClient() {
         </div>
       </div>
 
-      {/* Floating Cart Button */}
-      {cartCount > 0 && (
-        <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setIsCartOpen(true)}
-          className="fixed bottom-6 right-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white p-4 rounded-full shadow-2xl shadow-orange-500/50 z-40 flex items-center gap-2"
+      {/* Floating Cart Button - Updated */}
+      {cartItemCount > 0 && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 120 }}
+          className="fixed bottom-0 left-0 w-full px-4 py-3 shadow-xl z-50"
         >
-          <ShoppingCart size={24} />
-          <span className="font-bold text-lg">{cartCount}</span>
-        </motion.button>
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 px-4 rounded-xl flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <ShoppingCart size={22} />
+              <span className="font-semibold text-base">
+                {cartItemCount} {cartItemCount === 1 ? "item" : "items"}
+              </span>
+            </div>
+
+            <span className="font-bold text-lg">₹{cartTotal.toFixed(0)}</span>
+          </button>
+        </motion.div>
       )}
 
       {/* Cart Sidebar */}
@@ -766,11 +904,15 @@ export default function MenuClient() {
 function MenuSection({
   title,
   items,
+  cartItems,
   onAddToCart,
+  onRemoveFromCart,
 }: {
   title: string;
   items: MenuItem[];
+  cartItems: CartItem[];
   onAddToCart: (item: MenuItem) => void;
+  onRemoveFromCart: (itemId: string) => void;
 }) {
   if (items.length === 0) return null;
 
@@ -793,7 +935,9 @@ function MenuSection({
               key={item._id}
               item={item}
               index={index}
+              cartItems={cartItems}
               onAddToCart={onAddToCart}
+              onRemoveFromCart={onRemoveFromCart}
             />
           ))}
         </AnimatePresence>
@@ -805,18 +949,29 @@ function MenuSection({
 function MenuItemCard({
   item,
   index,
+  cartItems,
   onAddToCart,
+  onRemoveFromCart,
 }: {
   item: MenuItem;
   index: number;
+  cartItems: CartItem[];
   onAddToCart: (item: MenuItem) => void;
+  onRemoveFromCart: (itemId: string) => void;
 }) {
-  const [added, setAdded] = useState(false);
+  const cartItem = cartItems.find((ci) => ci.id === item._id);
+  const quantity = cartItem?.quantity || 0;
 
   const handleAdd = () => {
     onAddToCart(item);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1000);
+  };
+
+  const handleIncrement = () => {
+    onAddToCart(item);
+  };
+
+  const handleDecrement = () => {
+    onRemoveFromCart(item._id);
   };
 
   return (
@@ -844,18 +999,36 @@ function MenuItemCard({
             <div className="bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold text-base sm:text-lg px-3 py-2 rounded-lg shadow-lg">
               ₹{item.price}
             </div>
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={handleAdd}
-              className={`px-3 py-1.5 rounded-lg font-semibold text-sm flex items-center gap-1 transition-all ${
-                added
-                  ? "bg-green-500 text-white"
-                  : "bg-orange-500/20 text-orange-400 border border-orange-500/30 hover:bg-orange-500/30"
-              }`}
-            >
-              <Plus size={16} />
-              {added ? "Added!" : "Add"}
-            </motion.button>
+            {quantity === 0 ? (
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={handleAdd}
+                className="px-4 py-1.5 rounded-lg font-semibold text-sm flex items-center gap-1 bg-orange-500/20 text-orange-400 border border-orange-500/30 hover:bg-orange-500/30 transition-all"
+              >
+                <Plus size={16} />
+                Add
+              </motion.button>
+            ) : (
+              <div className="flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-lg px-2 py-1">
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleDecrement}
+                  className="w-6 h-6 flex items-center justify-center text-orange-400 hover:bg-orange-500/30 rounded transition-all font-bold"
+                >
+                  −
+                </motion.button>
+                <span className="text-white font-semibold min-w-[20px] text-center">
+                  {quantity}
+                </span>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleIncrement}
+                  className="w-6 h-6 flex items-center justify-center text-orange-400 hover:bg-orange-500/30 rounded transition-all font-bold"
+                >
+                  +
+                </motion.button>
+              </div>
+            )}
           </div>
         </div>
 
