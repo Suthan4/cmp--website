@@ -549,10 +549,16 @@ export default function AdminPanel() {
 
   const categories = [
     { id: "all", label: "All Items", emoji: "📋" },
-    { id: "fruit-shakes", label: "Fruit Shakes", emoji: "🍓" }, 
-    { id: "signature-shakes", label: "Signature Shakes", emoji: "🥤" }, 
-    { id: "refereshers", label: "Refreshers", emoji: "🌿" },
-    { id: "fresh-juices", label: "Fresh Juices", emoji: "🍊" },
+
+    { id: "fruit-shakes", label: "Fruit Shakes", emoji: "🍓" },
+
+    { id: "fruit-icecreams", label: "Fruit Ice-Creams", emoji: "🍨" },
+
+    { id: "fresh-fruit-juice", label: "Fresh Fruit Juice", emoji: "🧃" },
+
+    { id: "quick-bites", label: "Quick Bites", emoji: "🍟" },
+
+    { id: "maggie", label: "Maggie", emoji: "🍜" },
   ];
 
   // Fetch menu items
