@@ -1032,10 +1032,11 @@ function ItemModal({
                 }
                 className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none transition-all"
               >
-                <option value="starters">Starters</option>
-                <option value="main">Main Course</option>
-                <option value="desserts">Desserts</option>
-                <option value="beverages">Beverages</option>
+                <option value="fruit-shakes">🍓 Fruit Shakes</option>
+                <option value="fruit-icecreams">🍨 Fruit Ice-Creams</option>
+                <option value="fresh-fruit-juice">🧃 Fresh Fruit Juice</option>
+                <option value="quick-bites">🍟 Quick Bites</option>
+                <option value="maggie">🍜 Maggie</option>
               </select>
             </div>
           </div>
