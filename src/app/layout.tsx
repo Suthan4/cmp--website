@@ -80,6 +80,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="facebook-domain-verification"
+          content="aac766bo9ny1ale33dk67g2nmugouo"
+        />
+      </head>
       <body className={`${inter.variable} ${inter.className} antialiased`}>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <AppScafold>{children}</AppScafold>

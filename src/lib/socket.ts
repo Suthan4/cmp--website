@@ -1,6 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = "https://smyd-backend.onrender.com";
+// const SOCKET_URL = "https://smyd-backend.onrender.com";
+const SOCKET_URL = "http://localhost:5005";
 
 let socket: Socket | null = null;
 
